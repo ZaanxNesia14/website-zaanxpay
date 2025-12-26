@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Struk Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #1a202c; /* Memastikan background gelap yang konsisten */
+            color: #e2e8f0;
+        }
+        #receipt-container {
+            display: flex;
+            justify-content: center;
+        }
+        .receipt-preview-wrapper {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-top: 20px;
+            background: #fff;
+            color: #333;
+            font-family: 'Courier New', Courier, monospace;
+            max-width: 400px; /* Lebar struk kasir */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        .receipt-header {
+            text-align: center;
+            border-bottom: 1px dashed #999;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .receipt-header h2 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #000;
+        }
+        .receipt-body table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+        .receipt-body td {
+            padding: 6px 0;
+            vertical-align: top;
+        }
+        .receipt-body .label {
+            width: 110px;
+            font-weight: 600;
+        }
+        .receipt-body .colon {
+            width: 10px;
+        }
+        .receipt-body .value {
+            word-break: break-all;
+        }
+        .receipt-body .total-row td {
+            font-weight: bold;
+            font-size: 1.1em;
+            padding-top: 10px;
+            border-top: 1px dashed #999;
+        }
+        .receipt-status {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin: 20px 0;
+            padding: 10px;
+            border: 2px solid #28a745;
+            color: #28a745;
+            border-radius: 5px;
+        }
+        .receipt-footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        /* Admin Panel Specific Styles */
+        .purchase-container {
+            background: #2d3748 !important; /* Warna card yang lebih modern */
+            border: 1px solid #4a5568;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .form-step {
+            background: #1a202c;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #4a5568;
+        }
+        .form-step h3 {
+            color: #63b3ed;
+            border-bottom: 1px solid #4a5568;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .form-group {
+            margin-top: 10px !important;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+        }
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        @media (max-width: 900px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* --- Sidebar Layout Styles --- */
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 260px;
+            background-color: #2d3748;
+            border-right: 1px solid #4a5568;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            flex-shrink: 0;
+        }
+        .sidebar-header {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #4a5568;
+        }
+        .sidebar-header h2 {
+            color: #63b3ed;
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-item {
+            margin-bottom: 10px;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: #a0aec0;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: #4a5568;
+            color: #fff;
+        }
+        .nav-link i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background-color: #1a202c;
+        }
+        .view-section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .view-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .admin-wrapper { flex-direction: column; }
+            .sidebar { width: 100%; padding: 10px 20px; }
+            .sidebar-header { margin-bottom: 10px; padding-bottom: 10px; }
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        /* Styles from admin_pemenang.html */
+        .winners-container {
+            background-color: #2d3748;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        .winners-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .action-btns { display: flex; gap: 8px; }
+        .edit-btn, .delete-btn { color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 0.9em; transition: opacity 0.2s; }
+        .edit-btn { background: var(--secondary-color); }
+        .delete-btn { background: var(--error-color); }
+        .edit-btn:hover, .delete-btn:hover { opacity: 0.8; }
+        .winners-table th, .winners-table td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #4a5568; }
+        .winners-table th { background-color: #1a202c; }
+
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin Panel</h2>
+                <p style="color: #a0aec0; font-size: 0.8em; margin: 0;">Generator Struk</p>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active" data-target="dashboard-view">
+                        <i class="fas fa-chart-line"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-target="receipt-view">
+                        <i class="fas fa-file-invoice-dollar"></i> Buat Struk
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-target="pemenang-view">
+                        <i class="fas fa-trophy"></i> Kelola Pemenang
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- VIEW 1: Dashboard -->
+            <div id="dashboard-view" class="view-section active">
+                <h2 style="color: #e2e8f0; margin-bottom: 20px;">Dashboard Overview</h2>
+                <div class="purchase-container" style="max-width: 100%; margin: 0;">
+                    <h3 style="margin-top: 0; color: #63b3ed; border-bottom: 1px solid #4a5568; padding-bottom: 10px;">Statistik Hari Ini</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <!-- Card 1: Transaksi -->
+                        <div style="background: #1a202c; padding: 20px; border-radius: 8px; border: 1px solid #4a5568; text-align: center;">
+                            <i class="fas fa-shopping-cart" style="font-size: 2em; color: #63b3ed; margin-bottom: 10px;"></i>
+                            <h4 style="margin: 0; color: #a0aec0; font-size: 0.9em;">Total Transaksi</h4>
+                            <p id="todayCount" style="font-size: 1.8em; font-weight: bold; margin: 10px 0 0 0; color: #e2e8f0;">0</p>
+                        </div>
+                        <!-- Card 2: Pendapatan -->
+                        <div style="background: #1a202c; padding: 20px; border-radius: 8px; border: 1px solid #4a5568; text-align: center;">
+                            <i class="fas fa-wallet" style="font-size: 2em; color: #48bb78; margin-bottom: 10px;"></i>
+                            <h4 style="margin: 0; color: #a0aec0; font-size: 0.9em;">Total Pendapatan</h4>
+                            <p id="todayRevenue" style="font-size: 1.8em; font-weight: bold; margin: 10px 0 0 0; color: #e2e8f0;">Rp 0</p>
+                        </div>
+                        <!-- Card 3: Traffic (NEW) -->
+                        <div style="background: #1a202c; padding: 20px; border-radius: 8px; border: 1px solid #4a5568; text-align: center;">
+                            <i class="fas fa-users" style="font-size: 2em; color: #ed8936; margin-bottom: 10px;"></i>
+                            <h4 style="margin: 0; color: #a0aec0; font-size: 0.9em;">Traffic Web</h4>
+                            <p id="todayTraffic" style="font-size: 1.8em; font-weight: bold; margin: 10px 0 0 0; color: #e2e8f0;">0</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Traffic Chart Section -->
+                    <div style="background: #1a202c; padding: 20px; border-radius: 8px; border: 1px solid #4a5568; margin-top: 20px;">
+                        <h4 style="margin: 0 0 15px 0; color: #a0aec0; font-size: 1em;">Tren Traffic (Live)</h4>
+                        <div class="chart-container">
+                            <canvas id="trafficChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: Receipt Generator -->
+            <div id="receipt-view" class="view-section">
+                <h2 style="color: #e2e8f0; margin-bottom: 20px;">Buat Struk Baru</h2>
+                <div class="admin-layout">
+            <!-- Kolom Kiri: Form Input -->
+            <div class="purchase-container" style="max-width: 100%; margin: 0;">
+                <form id="receiptForm" onsubmit="return false;">
+                <div class="form-step">
+                    <h3>Info Toko</h3>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <input type="text" id="storeAddress" placeholder=" " value="Jl. Masjid Raya, Sulawesi Selatan">
+                            <label for="storeAddress">Alamat Toko</label>
+                        </div>
+                        <div class="form-group full-width">
+                            <input type="text" id="storeContact" placeholder=" " value="0821-9455-9519">
+                            <label for="storeContact">Kontak Toko</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="color" id="headerColor" value="#000000" style="height: 45px; padding: 2px 5px; cursor: pointer;">
+                            <label for="headerColor">Warna Header</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="color" id="statusColor" value="#28a745" style="height: 45px; padding: 2px 5px; cursor: pointer;">
+                            <label for="statusColor">Warna Status</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-step">
+                    <h3>Detail Transaksi</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="text" id="customerName" placeholder=" " required>
+                            <label for="customerName">Nama Pelanggan</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="customerId" placeholder=" " required>
+                            <label for="customerId">User ID / Nomor Tujuan</label>
+                        </div>
+                        <div class="form-group">
+                            <select id="productName" required>
+                                <option value="" disabled selected>Pilih Produk</option>
+                                <option value="Mobile Legends">Mobile Legends</option>
+                                <option value="Free Fire">Free Fire</option>
+                                <option value="PUBG Mobile">PUBG Mobile</option>
+                                <option value="Valorant">Valorant</option>
+                                <option value="Genshin Impact">Genshin Impact</option>
+                                <option value="Call of Duty Mobile">Call of Duty Mobile</option>
+                                <option value="Google Play">Google Play</option>
+                                <option value="Spotify">Spotify</option>
+                                <option value="Vidio">Vidio</option>
+                                <option value="WeTV">WeTV</option>
+                                <option value="Genflix">Genflix</option>
+                                <option value="Bstation">Bstation</option>
+                                <option value="Bigo Live">Bigo Live</option>
+                                <option value="TikTok">TikTok</option>
+                                <option value="Viu">Viu</option>
+                                <option value="League of Legends">League of Legends</option>
+                                <option value="Supersus">Supersus</option>
+                                <option value="Hago">Hago</option>
+                                <option value="Lita">Lita</option>
+                                <option value="Roblox">Roblox</option>
+                                <option value="Grand Theft Auto V">Grand Theft Auto V</option>
+                                <option value="Fortnite">Fortnite</option>
+                                <option value="Point Blank">Point Blank</option>
+                                <option value="Voucher Valorant">Voucher Valorant</option>
+                            </select>
+                            <label for="productName">Nama Produk</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="productItem" placeholder=" " required>
+                            <label for="productItem">Item / Nominal</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="voucherCode" placeholder=" ">
+                            <label for="voucherCode">Kode Voucher (Opsional)</label>
+                        </div>
+                        <div class="form-group">
+                            <select id="paymentMethod" required>
+                                <option value="" disabled selected>Pilih Metode</option>
+                                <option value="QRIS">QRIS</option>
+                                <option value="DANA">DANA</option>
+                                <option value="GoPay">GoPay</option>
+                                <option value="ShopeePay">ShopeePay</option>
+                                <option value="OVO">OVO</option>
+                                <option value="LinkAja">LinkAja</option>
+                                <option value="BCA">BCA</option>
+                                <option value="BRI">BRI</option>
+                                <option value="Mandiri">Mandiri</option>
+                                <option value="BNI">BNI</option>
+                                <option value="Alfamart">Alfamart</option>
+                                <option value="Indomaret">Indomaret</option>
+                            </select>
+                            <label for="paymentMethod">Metode Pembayaran</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" id="price" placeholder=" " required>
+                            <label for="price">Total Harga (Rp)</label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="proceed-button" style="width: 100%; margin-top: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Buat Struk</button>
+                </form>
+            </div>
+
+            <!-- Kolom Kanan: Preview & Riwayat -->
+            <div>
+                <div class="purchase-container" style="max-width: 100%; margin: 0 0 20px 0; min-height: 200px;">
+                    <h3 style="margin-top: 0; color: #63b3ed; border-bottom: 1px solid #4a5568; padding-bottom: 10px;">Pratinjau Struk</h3>
+                    <div id="receipt-container" style="margin-top: 1rem; display: flex; justify-content: center;">
+                        <p style="color: #718096; font-style: italic;">Struk akan muncul di sini setelah dibuat.</p>
+                    </div>
+                    <button id="downloadBtn" class="whatsapp-button" style="width: 100%; margin-top: 1rem; display: none;">
+                        Download Struk (PNG)
+                    </button>
+                </div>
+
+                <div class="purchase-container" style="max-width: 100%; margin: 0;">
+                    <div class="form-step" style="border: none; padding: 0; margin: 0; background: transparent;">
+                        <h3 style="margin-top: 0;">Riwayat Struk</h3>
+                        <div id="history-list" style="max-height: 400px; overflow-y: auto;">
+                            <p style="text-align: center; color: #aaa;">Belum ada riwayat.</p>
+                        </div>
+                        <button id="clearHistoryBtn" class="whatsapp-button" style="width: 100%; margin-top: 1rem; background: #e53e3e; border: none;">Hapus Riwayat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+
+            <!-- VIEW 3: Kelola Pemenang -->
+            <div id="pemenang-view" class="view-section">
+                <h2 style="color: #e2e8f0; margin-bottom: 20px;">Kelola Pemenang Event</h2>
+                
+                <!-- Form Input Pemenang -->
+                <div class="purchase-container" style="max-width: 100%; margin: 0;">
+                    <h3 style="margin-top: 0; color: #63b3ed; border-bottom: 1px solid #4a5568; padding-bottom: 10px;">Tambah Pemenang Baru</h3>
+                    <form id="addWinnerForm" onsubmit="return false;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                            <div class="form-group">
+                                <input type="date" id="winnerPeriod" required>
+                                <label for="winnerPeriod">Periode</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="winnerName" placeholder=" " required>
+                                <label for="winnerName">Nama Pemenang</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="winnerPrize" value="1x WDP" placeholder=" " required>
+                                <label for="winnerPrize">Hadiah</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="winnerTicket" placeholder=" " required>
+                                <label for="winnerTicket">Nomor Undian</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="proceed-button" style="width: 100%; margin-top: 1.5rem;">Tambah Pemenang</button>
+                    </form>
+                </div>
+
+                <!-- Tabel Daftar Pemenang -->
+                <div class="winners-container" style="max-width: 100%; margin: 2rem 0 0 0;">
+                    <h3 style="margin-top: 0; color: #63b3ed; border-bottom: 1px solid #4a5568; padding-bottom: 10px;">Daftar Pemenang Saat Ini</h3>
+                    <table class="winners-table">
+                        <thead>
+                            <tr>
+                                <th>Periode</th>
+                                <th>Nama Pemenang</th>
+                                <th>Hadiah</th>
+                                <th>Nomor Undian</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="winnersList">
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modal untuk Edit Pemenang -->
+    <div id="editWinnerModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-button">&times;</span>
+            <h3 style="text-align: center; margin-top: 0;">Edit Data Pemenang</h3>
+            <div class="modal-body" style="text-align: left; padding: 1rem 0;">
+                <form id="editWinnerForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <input type="date" id="editWinnerPeriod" required>
+                        <label for="editWinnerPeriod">Periode</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="editWinnerName" placeholder=" " required>
+                        <label for="editWinnerName">Nama Pemenang</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="editWinnerPrize" placeholder=" " required>
+                        <label for="editWinnerPrize">Hadiah</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="editWinnerTicket" placeholder=" " required>
+                        <label for="editWinnerTicket">Nomor Undian</label>
+                    </div>
+                    <div class="modal-footer" style="border-top: none; padding: 1rem 0 0 0;">
+                        <button type="button" class="cancel-btn">Batal</button>
+                        <button type="submit" class="confirm-btn">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Library untuk membuat PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="admin.js"></script>
+    <script>
+        // This script is moved from admin_pemenang.html to fix the navigation bug
+        // and integrate the winner management into the main admin panel.
+        document.addEventListener('DOMContentLoaded', function() {
+            // The password protection is already handled by admin.js or the main panel script.
+
+            const addWinnerForm = document.getElementById('addWinnerForm');
+            const winnersList = document.getElementById('winnersList');
+            const WINNERS_KEY = 'zaanxpay_winners';
+
+            const editModal = document.getElementById('editWinnerModal');
+            const editForm = document.getElementById('editWinnerForm');
+            const cancelEditBtn = document.querySelector('#editWinnerModal .cancel-btn');
+            let currentlyEditingIndex = null;
+
+            function getWinners() { return JSON.parse(localStorage.getItem(WINNERS_KEY)) || []; }
+            function saveWinners(winners) { localStorage.setItem(WINNERS_KEY, JSON.stringify(winners)); }
+
+            function renderWinners() {
+                winnersList.innerHTML = '';
+                const winners = getWinners();
+                if (winners.length === 0) {
+                    winnersList.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #a0aec0; padding: 2rem 0;">Belum ada data pemenang.</td></tr>';
+                    return;
+                }
+                winners.sort((a, b) => new Date(b.period) - new Date(a.period));
+                winners.forEach((winner, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${new Date(winner.period).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+                        <td>${winner.name}</td>
+                        <td>${winner.prize}</td>
+                        <td>${winner.ticket}</td>
+                        <td><div class="action-btns">
+                            <button class="edit-btn" data-index="${index}" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="delete-btn" data-index="${index}" title="Hapus"><i class="fas fa-trash"></i></button>
+                        </div></td>
+                    `;
+                    winnersList.appendChild(row);
+                });
+            }
+
+            if (addWinnerForm) {
+                addWinnerForm.addEventListener('submit', function() {
+                    const newWinner = { period: document.getElementById('winnerPeriod').value, name: document.getElementById('winnerName').value, prize: document.getElementById('winnerPrize').value, ticket: document.getElementById('winnerTicket').value };
+                    const winners = getWinners();
+                    winners.push(newWinner);
+                    saveWinners(winners);
+                    addWinnerForm.reset();
+                    document.getElementById('winnerPrize').value = '1x WDP';
+                    renderWinners();
+                    alert('Pemenang berhasil ditambahkan!');
+                });
+            }
+
+            if (winnersList) {
+                winnersList.addEventListener('click', function(e) { 
+                    const editBtn = e.target.closest('.edit-btn');
+                    const deleteBtn = e.target.closest('.delete-btn');
+
+                    if (editBtn) {
+                        const indexToEdit = parseInt(editBtn.dataset.index, 10);
+                        let winners = getWinners();
+                        winners.sort((a, b) => new Date(b.period) - new Date(a.period));
+                        const winnerToEdit = winners[indexToEdit];
+                        currentlyEditingIndex = indexToEdit;
+                        document.getElementById('editWinnerPeriod').value = winnerToEdit.period;
+                        document.getElementById('editWinnerName').value = winnerToEdit.name;
+                        document.getElementById('editWinnerPrize').value = winnerToEdit.prize;
+                        document.getElementById('editWinnerTicket').value = winnerToEdit.ticket;
+                        editModal.style.display = 'block';
+                    }
+
+                    if (deleteBtn) {
+                        if (confirm('Apakah Anda yakin ingin menghapus data pemenang ini?')) {
+                            const indexToDelete = parseInt(deleteBtn.dataset.index, 10);
+                            let winners = getWinners();
+                            winners.sort((a, b) => new Date(b.period) - new Date(a.period));
+                            winners.splice(indexToDelete, 1);
+                            saveWinners(winners);
+                            renderWinners();
+                        }
+                    }
+                });
+            }
+
+            if (editForm) {
+                editForm.addEventListener('submit', function() {
+                    if (currentlyEditingIndex === null) return;
+                    const updatedWinner = {
+                        period: document.getElementById('editWinnerPeriod').value,
+                        name: document.getElementById('editWinnerName').value,
+                        prize: document.getElementById('editWinnerPrize').value,
+                        ticket: document.getElementById('editWinnerTicket').value
+                    };
+                    let winners = getWinners();
+                    winners.sort((a, b) => new Date(b.period) - new Date(a.period));
+                    winners[currentlyEditingIndex] = updatedWinner;
+                    saveWinners(winners);
+                    renderWinners();
+                    editModal.style.display = 'none';
+                    currentlyEditingIndex = null;
+                    alert('Data pemenang berhasil diperbarui!');
+                });
+            }
+
+            if (editModal) {
+                cancelEditBtn.addEventListener('click', () => editModal.style.display = 'none');
+                editModal.querySelector('.close-button').addEventListener('click', () => editModal.style.display = 'none');
+                window.addEventListener('click', (event) => { if (event.target == editModal) editModal.style.display = 'none'; });
+            }
+
+            // Initial render if the winnersList element exists on the page
+            if (document.getElementById('winnersList')) {
+                renderWinners();
+            }
+        });
+    </script>
+</body>
+</html>

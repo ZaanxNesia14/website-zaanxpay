@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Spesial - zaanxpay</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .event-header-banner {
+            background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+            padding: 3rem 1rem;
+            text-align: center;
+            color: white;
+            border-radius: 0 0 20px 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4);
+        }
+        .event-title {
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .step-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: step-counter;
+        }
+        .step-list li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .step-list li::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+        }
+        .wa-button-event {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #25D366;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 350px;
+        }
+        .wa-button-event:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+        /* Toast Notification Style */
+        #toast {
+            visibility: hidden;
+            min-width: 300px;
+            background: rgba(26, 32, 44, 0.95); /* Dark semi-transparent */
+            backdrop-filter: blur(10px); /* Efek blur di belakang */
+            color: #fff;
+            text-align: center;
+            border-radius: 50px;
+            padding: 16px 25px;
+            position: fixed;
+            z-index: 3000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%) scale(0.9);
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(99, 179, 237, 0.2); /* Shadow + Glow */
+            border: 1px solid rgba(99, 179, 237, 0.5);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animasi membal */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+            transform: translateX(-50%) scale(1);
+        }
+        #toast i {
+            font-size: 1.2rem;
+            filter: drop-shadow(0 0 5px rgba(72, 187, 120, 0.8)); /* Glow pada ikon */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1><a href="index.html" style="color: white; text-decoration: none;">ZAANXPAY</a></h1>
+    </header>
+
+    
+
+    <main>
+        <div class="purchase-container" style="max-width: 800px; margin: 0 auto 3rem auto;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <a href="pemenang.html" style="display: inline-block; background: var(--border-color); color: #f5b327; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 600; margin-bottom: 1.5rem; transition: all 0.3s ease;" onmouseover="this.style.background='#4a5568'" onmouseout="this.style.background='var(--border-color)'">
+                    <i class="fas fa-trophy"></i> Lihat Daftar Pemenang
+                </a>
+                <h3 style="color: var(--secondary-color); font-size: 1.8rem; margin-bottom: 0.5rem; text-shadow: 0 0 10px rgba(0,123,255,0.3);">GRATIS WEEKLY DIAMOND PASS!</h3>
+                <p style="color: var(--text-color);">Periode Event: Selama persediaan masih ada.</p>
+            </div>
+
+            <div class="form-step">
+                <h3>Hadiah</h3>
+                <div style="background: var(--background-color); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 1rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
+                    <i class="fas fa-gem" style="font-size: 2.5rem; color: var(--secondary-color);"></i>
+                    <div>
+                        <h4 style="margin: 0; color: white;">1x Weekly Diamond Pass (WDP)</h4>
+                        <p style="margin: 5px 0 0 0; color: var(--text-color); font-size: 0.9rem;">Mobile Legends: Bang Bang</p>
+                        <p style="margin: 5px 0 0 0; color: #f5b327; font-size: 0.85rem; font-style: italic;">*Diundi setiap hari Jumat</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-step">
+                <h3>Cara Berpartisipasi</h3>
+                <ol class="step-list">
+                    <li>
+                        <strong>Share Link Website</strong>
+                        <p style="margin: 5px 0 0 0; color: var(--text-color);">Bagikan link website <strong><a href="index.html" style="color: var(--secondary-color);">zaanxpay.biz.id</a></strong> ke teman-temanmu atau ke grup WhatsApp/Facebook/Telegram.</p>
+                        <div style="margin-top: 10px; background: var(--background-color); padding: 15px; border-radius: 8px; border: 1px dashed var(--secondary-color);">
+                            <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: var(--text-color); font-style: italic; line-height: 1.5;">
+                                "Top Up Game Murah & Cepat cuma di ZAANXPAY! 🎮🔥<br>
+                                Lagi ada Event GRATIS Weekly Diamond Pass lho! 💎✨<br>
+                                Yuk ikutan sekarang di: https://zaanxpay.biz.id"
+                            </p>
+                            <button onclick="copyShareText()" style="background: var(--border-color); color: white; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-size: 0.85rem; transition: background 0.2s; display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-copy"></i> Salin Teks
+                            </button>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>Screenshot Bukti</strong>
+                        <p style="margin: 5px 0 0 0; color: var(--text-color);">Ambil tangkapan layar (screenshot) sebagai bukti bahwa kamu telah membagikan link tersebut.</p>
+                    </li>
+                    <li>
+                        <strong>Klaim Hadiah</strong>
+                        <p style="margin: 5px 0 0 0; color: var(--text-color);">Upload bukti screenshot pada form di bawah ini untuk mendapatkan nomor undian.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Form Partisipasi -->
+            <div id="participationForm" style="background: var(--background-color); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color); margin-top: 2rem; box-shadow: inset 0 0 20px rgba(0,0,0,0.5);">
+                <h3 style="margin-top: 0; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; color: var(--secondary-color);">Formulir Partisipasi</h3>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-color);">Nama / WhatsApp:</label>
+                    <input type="text" id="participantName" placeholder="Contoh: 08123456789" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-background); color: white; box-sizing: border-box;">
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-color);">Upload Bukti Share:</label>
+                    <input type="file" id="proofFile" accept="image/*" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-background); color: var(--text-color); box-sizing: border-box;">
+                    <!-- Image Preview Container -->
+                    <div id="imagePreviewContainer" style="display: none; margin-top: 1rem; text-align: center; background: #1a202c; padding: 10px; border-radius: 8px; position: relative;">
+                        <button id="removeImageBtn" title="Hapus Gambar" style="position: absolute; top: 5px; right: 5px; background: rgba(229, 62, 62, 0.8); color: white; border: none; width: 25px; height: 25px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; line-height: 25px; z-index: 10; display: flex; align-items: center; justify-content: center;">
+                            &times;
+                        </button>
+                        <p style="margin: 0 0 10px 0; font-size: 0.9rem; color: #a0aec0;">Pratinjau Gambar:</p>
+                        <img id="imagePreview" src="#" alt="Preview Bukti" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    </div>
+                </div>
+
+                <button onclick="submitParticipation()" class="wa-button-event" style="width: 100%;">
+                    <i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Kirim & Dapatkan Nomor Undian
+                </button>
+            </div>
+
+            <!-- Hasil Undian -->
+            <div id="ticketResult" style="display: none; text-align: center; margin-top: 2rem; background: linear-gradient(135deg, var(--card-background), var(--background-color)); padding: 2rem; border-radius: 12px; border: 2px dashed var(--secondary-color); box-shadow: 0 0 20px rgba(0, 123, 255, 0.2);">
+                <h3 style="color: #48bb78; margin-top: 0; font-size: 1.5rem;"><i class="fas fa-check-circle"></i> Berhasil Terkirim!</h3>
+                <p style="color: var(--text-color); margin: 1rem 0;">Terima kasih telah berpartisipasi. Berikut adalah nomor undian Anda:</p>
+                
+                <div style="font-size: 3.5rem; font-weight: bold; color: #f5b327; margin: 1.5rem 0; text-shadow: 0 0 15px rgba(245, 179, 39, 0.5); letter-spacing: 2px;" id="ticketNumber">
+                    #000
+                </div>
+                
+                <p style="color: var(--text-color); font-size: 0.9rem;">Simpan nomor ini (Screenshot).<br>Pemenang akan diumumkan setiap hari <strong>Jumat</strong>.</p>
+                <button onclick="location.reload()" style="margin-top: 1.5rem; background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 20px; border-radius: 50px; cursor: pointer;">Kembali</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Toast Notification Element -->
+    <div id="toast"><i class="fas fa-check-circle" style="color: #48bb78;"></i> Teks berhasil disalin!</div>
+
+    <!-- Audio Effect -->
+    <audio id="popSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const proofFileInput = document.getElementById('proofFile');
+            const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+            const imagePreview = document.getElementById('imagePreview');
+            const removeImageBtn = document.getElementById('removeImageBtn');
+
+            if (proofFileInput) {
+                proofFileInput.addEventListener('change', function() {
+                    const file = this.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            imagePreview.setAttribute('src', e.target.result);
+                            imagePreviewContainer.style.display = 'block';
+                        }
+                        reader.readAsDataURL(file);
+                    } else {
+                        imagePreviewContainer.style.display = 'none';
+                    }
+                });
+            }
+
+            if (removeImageBtn) {
+                removeImageBtn.addEventListener('click', function() {
+                    proofFileInput.value = ''; // Clear the file input
+                    imagePreviewContainer.style.display = 'none';
+                });
+            }
+        });
+
+        function showToast(message, type = 'success') {
+            var x = document.getElementById("toast");
+            var icon = '';
+            
+            if (type === 'error') {
+                icon = '<i class="fas fa-times-circle" style="color: #e53e3e;"></i>';
+                x.style.borderColor = 'rgba(229, 62, 62, 0.5)';
+            } else if (type === 'warning') {
+                icon = '<i class="fas fa-exclamation-triangle" style="color: #f5b327;"></i>';
+                x.style.borderColor = 'rgba(245, 179, 39, 0.5)';
+            } else {
+                icon = '<i class="fas fa-check-circle" style="color: #48bb78;"></i>';
+                x.style.borderColor = 'rgba(99, 179, 237, 0.5)';
+            }
+
+            x.innerHTML = icon + ' ' + message;
+            x.className = "show";
+            
+            var audio = document.getElementById("popSound");
+            if (audio) { audio.currentTime = 0; audio.play().catch(e => {}); }
+
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+
+        function copyShareText() {
+            const text = "Top Up Game Murah & Cepat cuma di ZAANXPAY! 🎮🔥\nLagi ada Event GRATIS Weekly Diamond Pass lho! 💎✨\nYuk ikutan sekarang di: https://zaanxpay.biz.id";
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Teks berhasil disalin!');
+            }).catch(err => {
+                console.error('Gagal menyalin: ', err);
+                showToast('Gagal menyalin teks.', 'error');
+            });
+        }
+
+        function submitParticipation() {
+            // Validasi Spam Protection (Cek LocalStorage)
+            if (localStorage.getItem('eventSubmitted')) {
+                showToast('Anda sudah mengirimkan formulir sebelumnya. Tunggu pengumuman pemenang ya!', 'warning');
+                return;
+            }
+
+            const name = document.getElementById('participantName').value;
+            const fileInput = document.getElementById('proofFile');
+            
+            if (!name || fileInput.files.length === 0) {
+                showToast('Mohon lengkapi Nama/WA dan Upload Bukti Share terlebih dahulu.', 'error');
+                return;
+            }
+
+            // Validasi Ukuran File (Maksimal 2MB)
+            const file = fileInput.files[0];
+            const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+            if (file.size > maxSize) {
+                showToast('Ukuran file terlalu besar, maksimal 2MB.', 'error');
+                fileInput.value = ''; // Reset input file
+                document.getElementById('imagePreviewContainer').style.display = 'none'; // Sembunyikan preview
+                return;
+            }
+
+            const submitBtn = document.querySelector('.wa-button-event');
+            
+            // Loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 10px;"></i> Mengirim...';
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+
+            // Generate Nomor Undian Acak (Min 100 - Max 999)
+            const randomNum = Math.floor(Math.random() * 900) + 100;
+            const ticketID = '#ZXP-' + randomNum;
+
+            // --- KONFIGURASI WEBHOOK DISCORD ---
+            // GANTI TEKS DI BAWAH INI DENGAN LINK WEBHOOK DISCORD ANDA
+            const webhookURL = 'https://discord.com/api/webhooks/1452674684519977141/M8IxQVUGX27iBdMPtWF6JsVJ4FUmSuupYvSvngT7Kj4h37qn2a219cdcpPsPNuggV1EB'; 
+            // -----------------------------------
+
+            const formData = new FormData();
+            // Isi pesan yang akan dikirim ke Discord
+            formData.append('content', `🎉 **Partisipan Baru Event WDP!**\n👤 **Nama/WA:** ${name}\n🎫 **Nomor Undian:** ${ticketID}`);
+            
+            // Lampirkan file gambar bukti share
+            if (fileInput.files[0]) {
+                formData.append('file', fileInput.files[0]);
+            }
+
+            fetch(webhookURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Simpan status submit ke LocalStorage agar tidak bisa spam
+                    localStorage.setItem('eventSubmitted', 'true');
+
+                    document.getElementById('participationForm').style.display = 'none';
+                    document.getElementById('ticketResult').style.display = 'block';
+                    document.getElementById('ticketNumber').innerText = ticketID;
+                    
+                    // Scroll ke hasil
+                    document.getElementById('ticketResult').scrollIntoView({behavior: 'smooth'});
+                } else {
+                    showToast('Gagal mengirim data. Pastikan koneksi internet lancar.', 'error');
+                    resetButton();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showToast('Terjadi kesalahan sistem. Silakan coba lagi.', 'error');
+                resetButton();
+            });
+
+            function resetButton() {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Kirim & Dapatkan Nomor Undian';
+                submitBtn.style.opacity = '1';
+            }
+        }
+    </script>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+            }
+        });
+    </script>
+
+</body>
+</html>

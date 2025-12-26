@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Kelola Pemenang</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .winners-container {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        .winners-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .winners-table th, .winners-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .winners-table th {
+            background-color: #2d3748;
+            color: var(--light-text-color);
+            font-weight: 600;
+        }
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+        .edit-btn, .delete-btn {
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: opacity 0.2s;
+        }
+        .edit-btn {
+            background: var(--secondary-color);
+        }
+        .delete-btn {
+            background: var(--error-color);
+        }
+        .edit-btn:hover, .delete-btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin - Kelola Pemenang</h1>
+        <p>Tambah atau hapus data pemenang event.</p>
+    </header>
+
+    <main>
+        <!-- Form Input Pemenang -->
+        <div class="purchase-container" style="max-width: 900px;">
+            <h3>Tambah Pemenang Baru</h3>
+            <form id="addWinnerForm" onsubmit="return false;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                    <div class="form-group">
+                        <input type="date" id="winnerPeriod" required>
+                        <label for="winnerPeriod">Periode</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="winnerName" placeholder=" " required>
+                        <label for="winnerName">Nama Pemenang</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="winnerPrize" value="1x WDP" placeholder=" " required>
+                        <label for="winnerPrize">Hadiah</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="winnerTicket" placeholder=" " required>
+                        <label for="winnerTicket">Nomor Undian</label>
+                    </div>
+                </div>
+                <button type="submit" class="proceed-button" style="width: 100%; margin-top: 1.5rem;">Tambah Pemenang</button>
+            </form>
+        </div>
+
+        <!-- Tabel Daftar Pemenang -->
+        <div class="winners-container">
+            <h3>Daftar Pemenang Saat Ini</h3>
+            <table class="winners-table">
+                <thead>
+                    <tr>
+                        <th>Periode</th>
+                        <th>Nama Pemenang</th>
+                        <th>Hadiah</th>
+                        <th>Nomor Undian</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="winnersList">
+                    <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal untuk Edit Pemenang -->
+    <div id="editWinnerModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-button">&times;</span>
+            <h3 style="text-align: center; margin-top: 0;">Edit Data Pemenang</h3>
+            <div class="modal-body" style="text-align: left; padding: 1rem 0;">
+                <form id="editWinnerForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <input type="date" id="editWinnerPeriod" required>
+                        <label for="editWinnerPeriod">Periode</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="editWinnerName" placeholder=" " required>
+                        <label for="editWinnerName">Nama Pemenang</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="editWinnerPrize" placeholder=" " required>
+                        <label for="editWinnerPrize">Hadiah</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="editWinnerTicket" placeholder=" " required>
+                        <label for="editWinnerTicket">Nomor Undian</label>
+                    </div>
+                    <div class="modal-footer" style="border-top: none; padding: 1rem 0 0 0;">
+                        <button type="button" class="cancel-btn">Batal</button>
+                        <button type="submit" class="confirm-btn">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simple password protection
+            if (sessionStorage.getItem('adminAuthenticated') !== 'true') {
+                window.location.href = 'admin_login.html';
+                return;
+            }
+
+            const form = document.getElementById('addWinnerForm');
+            const winnersList = document.getElementById('winnersList');
+            const WINNERS_KEY = 'zaanxpay_winners';
+
+            const editModal = document.getElementById('editWinnerModal');
+            const editForm = document.getElementById('editWinnerForm');
+            const cancelEditBtn = document.querySelector('#editWinnerModal .cancel-btn');
+            let currentlyEditingIndex = null;
+
+            function getWinners() {
+                return JSON.parse(localStorage.getItem(WINNERS_KEY)) || [];
+            }
+
+            function saveWinners(winners) {
+                localStorage.setItem(WINNERS_KEY, JSON.stringify(winners));
+            }
+
+            function renderWinners() {
+                winnersList.innerHTML = '';
+                const winners = getWinners();
+
+                if (winners.length === 0) {
+                    winnersList.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #a0aec0; padding: 2rem 0;">Belum ada data pemenang.</td></tr>';
+                    return;
+                }
+
+                winners.sort((a, b) => new Date(b.period) - new Date(a.period));
+
+                winners.forEach((winner, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${new Date(winner.period).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+                        <td>${winner.name}</td>
+                        <td>${winner.prize}</td>
+                        <td>${winner.ticket}</td>
+                        <td><div class="action-btns">
+                            <button class="edit-btn" data-index="${index}" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="delete-btn" data-index="${index}" title="Hapus"><i class="fas fa-trash"></i></button>
+                        </div></td>
+                    `;
+                    winnersList.appendChild(row);
+                });
+            }
+
+            form.addEventListener('submit', function() {
+                const newWinner = { period: document.getElementById('winnerPeriod').value, name: document.getElementById('winnerName').value, prize: document.getElementById('winnerPrize').value, ticket: document.getElementById('winnerTicket').value };
+                const winners = getWinners();
+                winners.push(newWinner);
+                saveWinners(winners);
+                form.reset();
+                document.getElementById('winnerPrize').value = '1x WDP';
+                renderWinners();
+                alert('Pemenang berhasil ditambahkan!');
+            });
+
+            winnersList.addEventListener('click', function(e) { 
+                const editBtn = e.target.closest('.edit-btn');
+                const deleteBtn = e.target.closest('.delete-btn');
+
+                if (editBtn) {
+                    const indexToEdit = parseInt(editBtn.dataset.index, 10);
+                    let winners = getWinners();
+                    winners.sort((a, b) => new Date(b.period) - new Date(a.period));
+                    const winnerToEdit = winners[indexToEdit];
+
+                    currentlyEditingIndex = indexToEdit;
+
+                    document.getElementById('editWinnerPeriod').value = winnerToEdit.period;
+                    document.getElementById('editWinnerName').value = winnerToEdit.name;
+                    document.getElementById('editWinnerPrize').value = winnerToEdit.prize;
+                    document.getElementById('editWinnerTicket').value = winnerToEdit.ticket;
+
+                    editModal.style.display = 'block';
+                }
+
+                if (deleteBtn) {
+                    if (confirm('Apakah Anda yakin ingin menghapus data pemenang ini?')) {
+                        const indexToDelete = parseInt(deleteBtn.dataset.index, 10);
+                        let winners = getWinners();
+                        winners.sort((a, b) => new Date(b.period) - new Date(a.period));
+                        winners.splice(indexToDelete, 1);
+                        saveWinners(winners);
+                        renderWinners();
+                    }
+                }
+            });
+
+            editForm.addEventListener('submit', function() {
+                if (currentlyEditingIndex === null) return;
+
+                const updatedWinner = {
+                    period: document.getElementById('editWinnerPeriod').value,
+                    name: document.getElementById('editWinnerName').value,
+                    prize: document.getElementById('editWinnerPrize').value,
+                    ticket: document.getElementById('editWinnerTicket').value
+                };
+
+                let winners = getWinners();
+                winners.sort((a, b) => new Date(b.period) - new Date(a.period));
+                winners[currentlyEditingIndex] = updatedWinner;
+                saveWinners(winners);
+                renderWinners();
+
+                editModal.style.display = 'none';
+                currentlyEditingIndex = null;
+                alert('Data pemenang berhasil diperbarui!');
+            });
+
+            cancelEditBtn.addEventListener('click', () => editModal.style.display = 'none');
+            editModal.querySelector('.close-button').addEventListener('click', () => editModal.style.display = 'none');
+            window.addEventListener('click', (event) => { if (event.target == editModal) editModal.style.display = 'none'; });
+
+            renderWinners();
+        });
+    </script>
+</body>
+</html>

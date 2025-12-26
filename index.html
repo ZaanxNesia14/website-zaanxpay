@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zaanxpay - Top Up Game Murah dan Cepat</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Enhanced Footer Links Section */
+        .page-links-section {
+            background: linear-gradient(to bottom, #1a202c, #2d3748);
+            padding: 1.5rem 1rem;
+            border-top: 1px solid #4a5568;
+            margin-top: 1.5rem;
+        }
+        .page-links-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .link-column {
+            text-align: center;
+            padding: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .link-column:hover {
+            transform: translateY(-5px);
+        }
+        .link-column h4 {
+            color: #63b3ed;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .link-column a {
+            display: block;
+            color: #a0aec0;
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .link-column a:hover {
+            color: #fff;
+            transform: translateX(5px);
+            text-shadow: 0 0 8px rgba(99, 179, 237, 0.5);
+        }
+        .link-column i {
+            margin-right: 8px;
+            color: #63b3ed;
+        }
+        /* Style untuk Dropdown Details */
+        details[open] summary ~ * { animation: sweep .5s ease-in-out; }
+        @keyframes sweep { 0% {opacity: 0; transform: translateY(-10px)} 100% {opacity: 1; transform: translateY(0)} }
+        details summary::-webkit-details-marker { display: none; }
+
+        /* Animasi Glow untuk Tombol Event */
+        @keyframes glowing-event {
+            0% { box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4); }
+            50% { box-shadow: 0 6px 30px rgba(0, 123, 255, 0.8), 0 0 20px rgba(0, 123, 255, 0.3); }
+            100% { box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4); }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-page-header">
+        <div class="header-title">
+            <a href="index.html" class="header-logo">
+                <img src="images/logo.png" alt="zaanxpay Logo">
+            </a>
+            <h1>ZAANXPAY</h1>
+        </div>
+        <div class="header-search">
+            <form id="searchForm" action="#" method="get" onsubmit="return false;">
+                <input type="text" id="searchInput" name="search" placeholder="Cari game...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </header>
+
+    <main>
+        <!-- Slider Promo Section -->
+        <section class="slider-container" aria-label="Promotions">
+            <div class="slides">
+                <div class="slide active">
+                    <img src="images/promo/promo1.jpg" alt="Promo Banner 1">
+                </div>
+                <div class="slide">
+                    <img src="images/promo/promo2.jpg" alt="Promo Banner 2">
+                </div>
+                <div class="slide">
+                    <img src="images/promo/promo3.jpg" alt="Promo Banner 3">
+                </div>
+            </div>
+            <div class="dots-container"></div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section" aria-labelledby="products-heading">
+            <div class="product-category-buttons">
+                <button type="button" class="category-btn active" data-category="all">Semua</button>
+                <button type="button" class="category-btn" data-category="game">Game</button>
+                <button type="button" class="category-btn" data-category="digital">Digital</button>
+                <button type="button" class="category-btn" data-category="voucher">Voucher</button>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 600px; margin: 1.5rem auto; padding: 0 10px;">
+                <a href="convert-saldo.html" style="display: flex; justify-content: center; align-items: center; background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%); color: white; padding: 12px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3); transition: transform 0.3s ease; font-size: 0.9rem; text-align: center;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fas fa-exchange-alt" style="margin-right: 8px;"></i> Convert Saldo
+                </a>
+                <a href="event.html" style="display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #007bff 0%, #6610f2 100%); color: white; padding: 12px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s ease; font-size: 0.9rem; text-align: center; animation: glowing-event 2.5s infinite ease-in-out;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <i class="fas fa-gift" style="margin-right: 8px;"></i> Event Berhadiah
+                </a>
+            </div>
+            <div class="game-grid">
+                <a href="ml.html" class="game-card" data-keywords="mobile legends,ml" data-category="game">
+                    <img src="images/games/ml.jpg" alt="Mobile Legends">
+                    <span>Mobile Legends</span>
+                </a>
+                <a href="ff.html" class="game-card" data-keywords="free fire,ff" data-category="game">
+                    <img src="images/games/ff.jpg" alt="Free Fire">
+                    <span>Free Fire</span>
+                </a>
+                <a href="pubg.html" class="game-card" data-keywords="pubg mobile,pubg" data-category="game">
+                    <img src="images/games/pubg.jpg" alt="PUBG Mobile">
+                    <span>PUBG Mobile</span>
+                </a>
+                <a href="valorant.html" class="game-card" data-keywords="valorant,valo" data-category="game">
+                    <img src="images/games/valorant.jpg" alt="Valorant">
+                    <span>Valorant</span>
+                </a>
+                <a href="genshin.html" class="game-card" data-keywords="genshin impact,genshin" data-category="game">
+                    <img src="images/games/genshin.jpg" alt="Genshin Impact">
+                    <span>Genshin Impact</span>
+                </a>
+                <a href="cod.html" class="game-card" data-keywords="call of duty,cod" data-category="game">
+                    <img src="images/games/cod.jpg" alt="Call of Duty Mobile">
+                    <span>Call of Duty</span>
+                </a>
+                <a href="googleplay.html" class="game-card" data-keywords="google play" data-category="voucher">
+                    <img src="images/games/googleplay.jpg" alt="Google Play">
+                    <span>Google Play</span>
+                </a>
+                <a href="spotify.html" class="game-card" data-keywords="spotify,musik" data-category="digital">
+                    <img src="images/games/spotify.jpg" alt="Spotify">
+                    <span>Spotify</span>
+                </a>
+                <a href="vidio.html" class="game-card" data-keywords="vidio,streaming" data-category="digital">
+                    <img src="images/games/vidio.jpg" alt="Vidio">
+                    <span>Vidio</span>
+                </a>
+                <a href="wetv.html" class="game-card" data-keywords="wetv,streaming" data-category="digital">
+                    <img src="images/games/wetv.jpg" alt="WeTV">
+                    <span>WeTV</span>
+                </a>
+                <a href="genflix.html" class="game-card" data-keywords="genflix,streaming" data-category="digital">
+                    <img src="images/games/genflix.jpg" alt="Genflix">
+                    <span>Genflix</span>
+                </a>
+                <a href="bstation.html" class="game-card" data-keywords="bstation,bilibili,streaming" data-category="digital">
+                    <img src="images/games/bstation.jpg" alt="Bstation">
+                    <span>Bstation</span>
+                </a>
+                <a href="bigo.html" class="game-card" data-keywords="bigo,live" data-category="digital">
+                    <img src="images/games/bigo.jpg" alt="Bigo">
+                    <span>Bigo</span>
+                </a>
+                <a href="tiktok.html" class="game-card" data-keywords="tiktok,koin tiktok,coins" data-category="digital">
+                    <img src="images/games/tiktok.jpg" alt="TikTok Koin">
+                    <span>TikTok Koin</span>
+                </a>
+                <a href="viu.html" class="game-card" data-keywords="viu,streaming" data-category="digital">
+                    <img src="images/games/viu.jpg" alt="Viu">
+                    <span>Viu</span>
+                </a>
+                <a href="lol.html" class="game-card" data-keywords="league of legends,lol,wild rift" data-category="game">
+                    <img src="images/games/lol.jpg" alt="League of Legends">
+                    <span>League of Legends</span>
+                </a>
+                <a href="supersus.html" class="game-card" data-keywords="supersus" data-category="game">
+                    <img src="images/games/supersus.jpg" alt="Supersus">
+                    <span>Supersus</span>
+                </a>
+                <a href="hago.html" class="game-card" data-keywords="hago" data-category="game">
+                    <img src="images/games/hago.jpg" alt="Hago">
+                    <span>Hago</span>
+                </a>
+                <a href="lita.html" class="game-card" data-keywords="lita" data-category="digital">
+                    <img src="images/games/lita.jpg" alt="Lita">
+                    <span>Lita</span>
+                </a>
+                <a href="roblox.html" class="game-card" data-keywords="roblox,robux" data-category="voucher">
+                    <img src="images/games/roblox.jpg" alt="Roblox">
+                    <span>Roblox</span>
+                </a>
+                <a href="gta5.html" class="game-card" data-keywords="gta,grand theft auto,gta v" data-category="voucher">
+                    <img src="images/games/gta5.jpg" alt="Grand Theft Auto V">
+                    <span>Grand Theft Auto V</span>
+                </a>
+                <a href="fortnite.html" class="game-card" data-keywords="fortnite" data-category="voucher">
+                    <img src="images/games/fortnite.jpg" alt="Fortnite">
+                    <span>Fortnite</span>
+                </a>
+                <a href="pointblank.html" class="game-card" data-keywords="point blank,pb" data-category="game">
+                    <img src="images/games/pointblank.jpg" alt="Point Blank">
+                    <span>Point Blank</span>
+                </a>
+                <a href="voucher-valorant.html" class="game-card" data-keywords="voucher valorant,riot cash,gift card" data-category="voucher">
+                    <img src="images/games/valorant.jpg" alt="Voucher Valorant">
+                    <span>Voucher Valorant</span>
+                </a>
+            </div>
+            <div id="no-results" style="text-align: center; display: none; margin-top: 2rem;"><h3>Game tidak ditemukan.</h3></div>
+        </section>
+
+        <!-- News Section -->
+        <section class="news-section" aria-labelledby="news-heading">
+            <h2 id="news-heading" style="margin-top: 3rem;">Berita & Info Update</h2>
+            <div class="article-grid">
+                <!-- Kartu Berita 1 -->
+                <a href="berita-promo.html" class="article-card" data-title="Dapatkan Diskon 2% dengan Kode Promo ZAANXGG!" 
+                   data-image="images/berita/berita1.jpg" 
+                   data-date="15 Agustus 2024"
+                   data-content="Kabar gembira untuk semua pelanggan setia Zaanxpay! Dapatkan diskon spesial sebesar 2% untuk setiap transaksi dengan menggunakan kode promo <strong>ZAANXGG</strong> saat checkout. Promo ini berlaku untuk semua game dan produk yang tersedia. Jangan lewatkan kesempatan ini untuk top up lebih hemat. Syarat dan ketentuan berlaku.">
+                    <img src="images/berita/berita1.jpg" alt="Ilustrasi promo diskon top up game" class="article-card-image">
+                </a>
+                <!-- Kartu Berita 2 -->
+                <a href="#" class="article-card"
+                   data-title="Waspada Penipuan"
+                   data-image="images/berita/berita2.jpg"
+                   data-date="10 Agustus 2024"
+                   data-content="Hati-hati terhadap penipuan yang mengatasnamakan Zaanxpay! Kami tidak pernah meminta password atau data pribadi Anda melalui chat. Semua transaksi dan pembayaran hanya dilakukan melalui website resmi kami. Nomor WhatsApp resmi kami hanya yang tertera di situs. Jika Anda menemukan aktivitas mencurigakan, segera hubungi kami.">
+                    <img src="images/berita/berita2.jpg" alt="Ilustrasi peringatan waspada penipuan" class="article-card-image">
+                </a>
+            </div>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section class="testimonial-section">
+            <h2>Apa Kata Mereka?</h2>
+            <div class="testimonial-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <p class="customer-name">B*****</p>
+                    <div class="star-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Prosesnya cepet banget, gak sampe 5 menit diamond udah masuk. Harganya juga paling murah di antara yang lain. Recommended!"</p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <p class="customer-name">A***</p>
+                    <div class="star-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Awalnya ragu, tapi ternyata amanah banget. CS-nya juga ramah dan fast response. Pasti bakal langganan di sini."</p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <p class="customer-name">R****</p>
+                    <div class="star-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">"Pilihan gamenya lengkap, pembayarannya juga gampang. Sering ada promo lagi. Mantap pokoknya zaanxpay!"</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="page-links-section">
+        <div class="page-links-container">
+            <div class="link-column">
+                <h4><i class="fas fa-info-circle"></i> Informasi</h4>
+                <a href="tentang.html"><i class="fas fa-users"></i> Tentang Kami</a>
+            </div>
+            <div class="link-column">
+                <h4><i class="fas fa-headset"></i> Bantuan</h4>
+                <a href="hubungi.html"><i class="fas fa-envelope"></i> Hubungi Kami</a>
+            </div>
+            <div class="link-column">
+                <h4><i class="fas fa-map-marker-alt"></i> Area</h4>
+                <a href="#"><i class="fas fa-flag"></i> Indonesia</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">
+            &copy; Hak Cipta <a href="admin_login.html" style="color: #a9b4c2; text-decoration: none;">zaanxpay</a>
+        </p>
+    </footer>
+
+    <script>
+        // 1. Preloader (Jalankan segera saat halaman dimuat)
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 2. Traffic Tracker (Dibungkus try-catch agar aman)
+            try {
+                const today = new Date().toLocaleDateString('id-ID');
+                if (localStorage.getItem('trafficDate') !== today) {
+                    localStorage.setItem('trafficDate', today);
+                    localStorage.setItem('siteTraffic', '0');
+                }
+                if (!sessionStorage.getItem('sessionVisited')) {
+                    let count = parseInt(localStorage.getItem('siteTraffic') || '0');
+                    localStorage.setItem('siteTraffic', (count + 1).toString());
+                    sessionStorage.setItem('sessionVisited', 'true');
+                }
+            } catch (e) {
+                console.warn("Traffic tracker error:", e);
+            }
+
+            // 3. Slider Logic
+            const slidesContainer = document.querySelector('.slides');
+            const dotsContainer = document.querySelector('.dots-container');
+            
+            if (slidesContainer && dotsContainer) {
+                const slides = Array.from(slidesContainer.children);
+                if (slides.length > 1) {
+                    let currentSlide = 0;
+                    let slideInterval;
+
+                    // Buat dots
+                    slides.forEach((_, i) => {
+                        const dot = document.createElement('span');
+                        dot.classList.add('dot');
+                        if (i === 0) dot.classList.add('active');
+                        dot.addEventListener('click', () => {
+                            goToSlide(i);
+                            resetTimer();
+                        });
+                        dotsContainer.appendChild(dot);
+                    });
+
+                    const dots = dotsContainer.querySelectorAll('.dot');
+
+                    function updateSlides() {
+                        slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+                        dots.forEach(d => d.classList.remove('active'));
+                        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+                    }
+
+                    function nextSlide() {
+                        currentSlide = (currentSlide + 1) % slides.length;
+                        updateSlides();
+                    }
+
+                    function goToSlide(n) {
+                        currentSlide = n;
+                        updateSlides();
+                    }
+
+                    function startTimer() {
+                        slideInterval = setInterval(nextSlide, 5000);
+                    }
+
+                    function resetTimer() {
+                        clearInterval(slideInterval);
+                        startTimer();
+                    }
+
+                    startTimer();
+                }
+            }
+
+            // 4. Filter Kategori & Pencarian (Inti Masalah)
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const gameCards = document.querySelectorAll('.game-card');
+            const searchInput = document.getElementById('searchInput');
+            const noResults = document.getElementById('no-results');
+
+            function filterProducts() {
+                // Ambil kategori aktif
+                const activeBtn = document.querySelector('.category-btn.active');
+                const category = activeBtn ? activeBtn.dataset.category : 'all';
+                
+                // Ambil teks pencarian
+                const search = searchInput ? searchInput.value.toLowerCase().trim() : '';
+                
+                let visibleCount = 0;
+
+                gameCards.forEach(card => {
+                    const cardCat = card.dataset.category;
+                    const cardKeys = card.dataset.keywords || '';
+                    
+                    // Cek kecocokan
+                    const matchCat = category === 'all' || cardCat === category;
+                    const matchSearch = cardKeys.toLowerCase().includes(search);
+
+                    if (matchCat && matchSearch) {
+                        card.style.display = ''; // Tampilkan (reset inline style)
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none'; // Sembunyikan
+                    }
+                });
+
+                // Tampilkan pesan jika tidak ada hasil
+                if (noResults) {
+                    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+                }
+            }
+
+            // Event Listener untuk Tombol Kategori
+            categoryButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Hapus class active dari semua tombol
+                    categoryButtons.forEach(b => b.classList.remove('active'));
+                    // Tambahkan class active ke tombol yang diklik
+                    btn.classList.add('active');
+                    // Jalankan filter
+                    filterProducts();
+                });
+            });
+
+            // Event Listener untuk Pencarian
+            if (searchInput) {
+                searchInput.addEventListener('keyup', filterProducts);
+                searchInput.addEventListener('search', filterProducts); // Untuk tombol 'x' di browser tertentu
+            }
+            
+            const searchForm = document.getElementById('searchForm');
+            if (searchForm) {
+                searchForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    filterProducts();
+                });
+            }
+
+            // 5. Handler Klik Artikel Berita
+            const articleCards = document.querySelectorAll('.article-card');
+            articleCards.forEach(card => {
+                if (card.getAttribute('href') === '#') {
+                    card.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const data = card.dataset;
+                        const params = new URLSearchParams({
+                            title: data.title || '',
+                            image: data.image || '',
+                            date: data.date || '',
+                            content: data.content || ''
+                        });
+                        window.location.href = `berita-detail.html?${params.toString()}`;
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

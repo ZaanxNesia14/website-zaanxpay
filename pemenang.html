@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Pemenang - zaanxpay</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .winners-container {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        .winners-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        .winners-table th, .winners-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .winners-table th {
+            background-color: #2d3748;
+            color: var(--light-text-color);
+            font-weight: 600;
+        }
+        .winners-table tbody tr:hover {
+            background-color: #2d3748;
+        }
+        .winners-table td:first-child {
+            font-weight: bold;
+            color: #a0aec0;
+        }
+        .winners-table .prize-cell {
+            color: #f5b327; /* Gold color for prize */
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            .winners-table, .winners-table thead, .winners-table tbody, .winners-table th, .winners-table td, .winners-table tr {
+                display: block;
+            }
+            .winners-table thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            .winners-table tr {
+                border: 1px solid var(--border-color);
+                margin-bottom: 1rem;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            .winners-table td {
+                border: none;
+                border-bottom: 1px solid #2d3748;
+                position: relative;
+                padding-left: 50%;
+                text-align: right;
+            }
+            .winners-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: var(--light-text-color);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1>Daftar Pemenang Event</h1>
+        <p>Selamat kepada para pemenang!</p>
+    </header>
+
+    <main>
+        <div class="winners-container">
+            <div style="margin-bottom: 1.5rem; position: relative;">
+                <input type="text" id="searchWinner" placeholder="Cari Nama atau Nomor Undian..." style="width: 100%; padding: 12px 15px; padding-right: 40px; border-radius: 50px; border: 1px solid var(--border-color); background: #1a202c; color: white; box-sizing: border-box; outline: none; transition: border-color 0.3s;">
+                <i class="fas fa-search" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #a0aec0;"></i>
+            </div>
+            <table class="winners-table">
+                <thead>
+                    <tr>
+                        <th>Periode</th>
+                        <th>Nama Pemenang</th>
+                        <th>Hadiah</th>
+                        <th>Nomor Undian</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+            }
+
+            const winnersListBody = document.querySelector('.winners-table tbody');
+            const WINNERS_KEY = 'zaanxpay_winners';
+
+            // Function to load and display winners
+            function loadWinners() {
+                const winners = JSON.parse(localStorage.getItem(WINNERS_KEY)) || [];
+                winnersListBody.innerHTML = ''; // Clear existing content
+
+                if (winners.length === 0) {
+                    winnersListBody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #a0aec0; padding: 2rem 0;">Belum ada pemenang.</td></tr>';
+                    return;
+                }
+
+                // Sort by date, newest first
+                winners.sort((a, b) => new Date(b.period) - new Date(a.period));
+
+                winners.forEach(winner => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td data-label="Periode">${new Date(winner.period).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+                        <td data-label="Nama Pemenang">${winner.name}</td>
+                        <td data-label="Hadiah" class="prize-cell">${winner.prize}</td>
+                        <td data-label="Nomor Undian">${winner.ticket}</td>
+                    `;
+                    winnersListBody.appendChild(row);
+                });
+            }
+
+            // Fitur Pencarian Pemenang
+            const searchInput = document.getElementById('searchWinner');
+            searchInput.addEventListener('keyup', function() {
+                const filter = this.value.toLowerCase();
+                const rows = winnersListBody.querySelectorAll('tr');
+
+                rows.forEach(row => {
+                    // Lewati baris "Belum ada pemenang"
+                    if (row.cells.length < 4) return;
+
+                    const name = row.cells[1].textContent.toLowerCase();
+                    const ticket = row.cells[3].textContent.toLowerCase();
+
+                    if (name.includes(filter) || ticket.includes(filter)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            // Initial load
+            loadWinners();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up PUBG Mobile</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1>Top Up PUBG Mobile</h1>
+        <p>Proses manual, cepat, dan terpercaya.</p>
+    </header>
+
+    <main>
+        <div class="purchase-container">
+            <div class="game-info-header">
+                <img src="images/games/pubg.jpg" alt="PUBG Mobile">
+                <div class="game-info-details">
+                    <h3>PUBG Mobile</h3>
+                    <p>⚡️ Proses Cepat</p>
+                    <p>🥷🏼 Buka 24 Jam Setiap Hari</p>
+                </div>
+            </div>
+            <form id="purchaseForm" onsubmit="return false;">
+                <!-- 1. Masukkan Data Akun -->
+                <div class="form-step">
+                    <h3>1. Masukkan Data Akun</h3>
+                    <div class="form-group">
+                        <input type="number" id="playerId" name="playerId" placeholder=" " required>
+                        <label for="playerId">Player ID <span class="info-link" id="openModalBtn">(?)</span></label>
+                    </div>
+                </div>
+
+                <!-- 2. Pilih Nominal Top Up -->
+                <div class="form-step">
+                    <h3>2. Pilih Nominal</h3>
+                    <div class="product-category-buttons">
+                        <button type="button" class="category-btn active" data-category="region">UC Region ID</button>
+                        <button type="button" class="category-btn" data-category="global">UC Global</button>
+                    </div>
+                    <div class="price-options" id="priceOptions">
+                        <div class="price-option" data-price="8000" data-product="15 UC (Region ID)" data-category="region" style="display: block;">15 UC<br><small>Rp 8.000</small></div>
+                        <div class="price-option" data-price="9000" data-product="25 UC (Region ID)" data-category="region" style="display: block;">25 UC<br><small>Rp 9.000</small></div>
+                        <div class="price-option" data-price="15000" data-product="60 UC (Region ID)" data-category="region" style="display: block;">60 UC<br><small>Rp 15.000</small></div>
+                        <div class="price-option" data-price="27000" data-product="70 UC (Region ID)" data-category="region" style="display: block;">70 UC<br><small>Rp 27.000</small></div>
+                        <div class="price-option" data-price="30000" data-product="100 UC (Region ID)" data-category="region" style="display: block;">100 UC<br><small>Rp 30.000</small></div>
+                        <div class="price-option" data-price="45000" data-product="150 UC (Region ID)" data-category="region" style="display: block;">150 UC<br><small>Rp 45.000</small></div>
+                        <div class="price-option" data-price="59000" data-product="210 UC (Region ID)" data-category="region" style="display: block;">210 UC<br><small>Rp 59.000</small></div>
+                        <div class="price-option" data-price="73000" data-product="250 UC (Region ID)" data-category="region" style="display: block;">250 UC<br><small>Rp 73.000</small></div>
+                        <div class="price-option" data-price="75000" data-product="300 UC (Region ID)" data-category="region" style="display: block;">300 UC<br><small>Rp 75.000</small></div>
+                        <div class="price-option" data-price="88000" data-product="375 UC (Region ID)" data-category="region" style="display: block;">375 UC<br><small>Rp 88.000</small></div>
+                        <div class="price-option" data-price="118000" data-product="500 UC (Region ID)" data-category="region" style="display: block;">500 UC<br><small>Rp 118.000</small></div>
+                        <div class="price-option" data-price="136000" data-product="525 UC (Region ID)" data-category="region" style="display: block;">525 UC<br><small>Rp 136.000</small></div>
+                        <div class="price-option" data-price="162000" data-product="700 UC (Region ID)" data-category="region" style="display: block;">700 UC<br><small>Rp 162.000</small></div>
+                        <div class="price-option" data-price="176000" data-product="750 UC (Region ID)" data-category="region" style="display: block;">750 UC<br><small>Rp 176.000</small></div>
+                        <div class="price-option" data-price="233000" data-product="1000 UC (Region ID)" data-category="region" style="display: block;">1000 UC<br><small>Rp 233.000</small></div>
+                        <div class="price-option" data-price="247000" data-product="1100 UC (Region ID)" data-category="region" style="display: block;">1100 UC<br><small>Rp 247.000</small></div>
+                        <div class="price-option" data-price="291000" data-product="1250 UC (Region ID)" data-category="region" style="display: block;">1250 UC<br><small>Rp 291.000</small></div>
+                        <div class="price-option" data-price="333000" data-product="1500 UC (Region ID)" data-category="region" style="display: block;">1500 UC<br><small>Rp 333.000</small></div>
+                        <div class="price-option" data-price="364000" data-product="1750 UC (Region ID)" data-category="region" style="display: block;">1750 UC<br><small>Rp 364.000</small></div>
+                        <div class="price-option" data-price="530000" data-product="2500 UC (Region ID)" data-category="region" style="display: block;">2500 UC<br><small>Rp 530.000</small></div>
+                        <div class="price-option" data-price="17000" data-product="60 UC (Global)" data-category="global" style="display: none;">60 UC<br><small>Rp 17.000</small></div>
+                        <div class="price-option" data-price="75000" data-product="325 UC (Global)" data-category="global" style="display: none;">325 UC<br><small>Rp 75.000</small></div>
+                        <div class="price-option" data-price="150000" data-product="660 UC (Global)" data-category="global" style="display: none;">660 UC<br><small>Rp 150.000</small></div>
+                        <div class="price-option" data-price="730000" data-product="3850 UC (Global)" data-category="global" style="display: none;">3850 UC<br><small>Rp 730.000</small></div>
+                        <div class="price-option" data-price="1450000" data-product="8100 UC (Global)" data-category="global" style="display: none;">8100 UC<br><small>Rp 1.450.000</small></div>
+                    </div>
+                    <input type="hidden" id="selectedPrice" name="price" required>
+                    <input type="hidden" id="selectedProduct" name="product" required>
+                </div>
+
+                <!-- 3. Pilih Metode Pembayaran -->
+                <div class="form-step">
+                    <h3>3. Pilih Pembayaran</h3>
+                    <p id="qrisLimitWarning" class="qris-limit-warning" style="display: none;">QRIS tidak tersedia untuk pembayaran di atas Rp 500.000.</p>
+                    <div class="payment-categories">
+                        <div class="payment-category">
+                            <h4>E-Wallet & QRIS</h4>
+                            <div class="payment-method-options" id="paymentOptionsContainer">
+                                <div class="payment-method-option" data-payment="qris">
+                                    <img src="images/payments/qris.png" alt="QRIS">
+                                    <span>QRIS</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="dana">
+                                    <img src="images/payments/dana.png" alt="DANA">
+                                    <span>DANA</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="gopay">
+                                    <img src="images/payments/gopay.png" alt="GoPay">
+                                    <span>GoPay</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="shopeepay">
+                                    <img src="images/payments/shopeepay.png" alt="ShopeePay">
+                                    <span>ShopeePay</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Masukkan Kode Promo -->
+                <div class="form-step">
+                    <h3>4. Masukkan Kode Promo (Opsional)</h3>
+                    <div class="promo-code-section">
+                        <div class="form-group">
+                            <input type="text" id="promoCode" name="promoCode" placeholder=" ">
+                            <label for="promoCode">Kode Promo</label>
+                        </div>
+                        <button type="button" id="applyPromoBtn" class="proceed-button" style="height: 47px;">Terapkan</button>
+                    </div>
+                </div>
+
+                <!-- 5. Masukkan Informasi Kontak -->
+                <div class="form-step">
+                    <h3>5. Masukkan Informasi Kontak</h3>
+                    <div class="form-group">
+                        <input type="text" id="contactInfo" name="contactInfo" placeholder=" ">
+                        <label for="contactInfo">No. HP / Email (untuk dihubungi)</label>
+                    </div>
+                </div>
+
+                <!-- Ringkasan & Tombol Lanjut -->
+                <div class="summary-section" id="summarySection" style="display: none;">
+                    <p>Total Pembayaran: <strong id="summaryPrice">Rp 0</strong></p>
+                    <button type="button" id="proceedBtn" class="proceed-button">Lanjutkan ke Pembayaran</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal untuk Konfirmasi Pesanan -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Konfirmasi Pesanan Anda</h3>
+                <div class="modal-body">
+                    <p>Mohon periksa kembali detail pesanan Anda sebelum melanjutkan.</p>
+                    <ul class="confirmation-details">
+                        <!-- Detail akan diisi oleh JavaScript -->
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn">Batal</button>
+                    <button type="button" class="confirm-btn" id="confirmOrderBtn">Ya, Lanjutkan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Pembayaran -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-button">&times;</span> <!-- Tombol close ini akan bekerja untuk semua -->
+                    <div id="timer">05:00</div>
+                </div>
+                <div class="modal-body">
+                    <h3 id="paymentMethodTitle">Metode Pembayaran</h3>
+
+                    <!-- Bagian untuk QRIS -->
+                    <div id="qrPayment" style="display: none;">
+                        <p>Total: <strong id="totalPrice">Rp 0</strong></p>
+                        <img src="images/qris.png" alt="QRIS Code" id="paymentQrImg" class="payment-qr-img">
+                    </div>
+
+                    <!-- Bagian untuk DANA, GoPay, ShopeePay -->
+                    <div id="manualPayment" style="display: none;" class="payment-details">
+                        <p>Jika aplikasi tidak terbuka, silakan transfer manual ke:</p>
+                        <div class="payment-number-box">
+                            <span id="paymentNumber">08xxxxxxxxxx</span>
+                            <button id="copyNumberBtn" title="Salin Nomor"><i class="far fa-copy"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Bagian untuk Loading Redirect -->
+                    <div id="paymentRedirecting" style="display: none; text-align: center; padding: 2rem 0;">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                        <p style="margin-top: 1rem; font-size: 1.1em;">Membuka aplikasi pembayaran...</p>
+                    </div>
+
+                    <p>Setelah membayar, klik tombol di bawah untuk konfirmasi pesanan via WhatsApp.</p>
+                    <a href="#" id="whatsappLink" class="whatsapp-button" target="_blank">Konfirmasi ke WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Petunjuk ID -->
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Cara Menemukan Player ID</h3>
+                <div class="modal-body">
+                    <p class="guide-step"><i class="fas fa-gamepad"></i> Buka game PUBG Mobile dan masuk ke profil Anda.</p>
+                    <p class="guide-step"><i class="fas fa-user-circle"></i> Player ID akan terlihat di bawah nama profil Anda.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Konfirmasi Sukses -->
+        <div id="successConfirmationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Pesanan Diterima!</h3>
+                </div>
+                <div class="modal-body">
+                    <i class="fas fa-check-circle success-confirmation-icon"></i>
+                    <p>Anda akan segera diarahkan ke WhatsApp. Mohon kirimkan bukti pembayaran Anda di sana.</p>
+                </div>
+                <div class="modal-footer" style="text-align: center;">
+                    <button type="button" class="notification-ok-btn">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Notifikasi Error -->
+        <div id="notificationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Peringatan</h3>
+                </div>
+                <div class="modal-body">
+                    <i id="notificationIcon" class="fas"></i>
+                    <span id="notificationMessage"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="notification-ok-btn">OK</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+    <script src="product-page.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const config = {
+                namaGame: 'PUBG Mobile',
+                nomorWhatsApp: '6282194559519',
+                paymentTimeLimit: 300,
+                discountPercentage: 0.02,
+                validPromoCodes: ['ZAANXGG'],
+                expiredPromoCodes: ['ZAANXGACOR'],
+                userInputFields: [
+                    { id: 'playerId', label: 'Player ID' },
+                    { id: 'contactInfo', label: 'Kontak (HP/Email)' }
+                ]
+            };
+            window.initializeProductPage(config);
+        });
+    </script>
+
+</body>
+</html>

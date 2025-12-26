@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - zaanxpay</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-container {
+            background-color: var(--card-background);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px var(--shadow-color);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .login-container h1 {
+            margin-bottom: 2rem;
+            color: var(--light-text-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Admin Login</h1>
+        <form id="loginForm" onsubmit="return false;">
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder=" " required>
+                <label for="password">Password</label>
+            </div>
+            <button type="submit" class="proceed-button" style="width: 100%; margin-top: 1rem;">Login</button>
+        </form>
+    </div>
+
+    <!-- Modal untuk Notifikasi Error -->
+    <div id="notificationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Peringatan</h3>
+            </div>
+            <div class="modal-body">
+                <i id="notificationIcon" class="fas"></i>
+                <span id="notificationMessage"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="notification-ok-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

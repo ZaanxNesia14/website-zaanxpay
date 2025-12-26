@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert Saldo & Rate - zaanxpay</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #1a202c;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+        }
+        .convert-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #2d3748;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #63b3ed;
+            font-size: 1.8rem;
+        }
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #63b3ed;
+        }
+        .rate-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background: #1a202c;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .rate-table th, .rate-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #4a5568;
+        }
+        .rate-table th {
+            background: #4a5568;
+            color: #fff;
+            font-weight: 600;
+        }
+        .rate-table tr:last-child td {
+            border-bottom: none;
+        }
+        .step-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(37, 117, 252, 0.3);
+        }
+        .wa-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #25D366;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .wa-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+        /* Responsive */
+        @media (max-width: 600px) {
+            .convert-container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+        /* Style untuk Dropdown Details */
+        details[open] summary ~ * { animation: sweep .5s ease-in-out; }
+        @keyframes sweep { 0% {opacity: 0; transform: translateY(-10px)} 100% {opacity: 1; transform: translateY(0)} }
+        details summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body>
+
+    <header class="main-page-header">
+        <div class="header-title">
+            <a href="index.html" class="header-logo">
+                <img src="images/logo.png" alt="zaanxpay Logo">
+            </a>
+            <h1>ZAANXPAY</h1>
+        </div>
+    </header>
+
+    <main>
+        <div class="convert-container">
+            <h2 class="section-title"><i class="fas fa-exchange-alt"></i> Convert Saldo (CV)</h2>
+            
+            <div class="info-box" style="padding: 0.5rem 1.5rem;">
+                <details>
+                    <summary style="cursor: pointer; font-weight: bold; font-size: 1.17em; margin: 1rem 0; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                        Apa itu Convert Saldo (CV)? <i class="fas fa-chevron-down"></i>
+                    </summary>
+                    <p style="margin-top: 0.5rem; line-height: 1.6; padding-bottom: 1rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        Layanan transfer saldo antar E-Wallet (DANA, OVO, GoPay, ShopeePay). 
+                        Solusi khusus bagi Anda yang akun E-Wallet-nya <strong>belum Premium/Upgrade</strong> sehingga tidak bisa melakukan transfer saldo ke sesama atau rekening bank.
+                    </p>
+                </details>
+            </div>
+
+            <div class="info-box" style="padding: 0.5rem 1.5rem;">
+                <details>
+                    <summary style="cursor: pointer; font-weight: bold; font-size: 1.17em; margin: 1rem 0; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                        Support Pembayaran <i class="fas fa-chevron-down"></i>
+                    </summary>
+                    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>Sumber Saldo</th>
+                                    <th>Tujuan</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DANA</td>
+                                    <td>Semua E-Wallet & Bank</td>
+                                    <td style="color: #48bb78; font-weight: bold;">OPEN</td>
+                                </tr>
+                                <tr>
+                                    <td>GoPay</td>
+                                    <td>Semua E-Wallet & Bank</td>
+                                    <td style="color: #48bb78; font-weight: bold;">OPEN</td>
+                                </tr>
+                                <tr>
+                                    <td>OVO</td>
+                                    <td>Semua E-Wallet & Bank</td>
+                                    <td style="color: #48bb78; font-weight: bold;">OPEN</td>
+                                </tr>
+                                <tr>
+                                    <td>ShopeePay</td>
+                                    <td>Semua E-Wallet & Bank</td>
+                                    <td style="color: #48bb78; font-weight: bold;">OPEN</td>
+                                </tr>
+                                <tr>
+                                    <td>All Bank</td>
+                                    <td>Semua E-Wallet & Bank</td>
+                                    <td style="color: #48bb78; font-weight: bold;">OPEN</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+
+            <div style="margin-top: 3rem; background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px; border: 1px solid #4a5568;">
+                <h3 style="text-align: center; margin-top: 0; margin-bottom: 1.5rem; color: #63b3ed;">Mulai Convert</h3>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Sumber Saldo:</label>
+                    <select id="cvSource" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #4a5568; background: #1a202c; color: white; font-family: inherit; box-sizing: border-box;">
+                        <option value="DANA">DANA</option>
+                        <option value="GoPay">GoPay</option>
+                        <option value="OVO">OVO</option>
+                        <option value="ShopeePay">ShopeePay</option>
+                        <option value="Bank">Bank Transfer</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Tujuan Saldo:</label>
+                    <select id="cvTarget" onchange="toggleBankList()" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #4a5568; background: #1a202c; color: white; font-family: inherit; box-sizing: border-box;">
+                        <option value="DANA">DANA</option>
+                        <option value="GoPay">GoPay</option>
+                        <option value="OVO">OVO</option>
+                        <option value="ShopeePay">ShopeePay</option>
+                        <option value="Bank">Bank Transfer</option>
+                    </select>
+                </div>
+
+                <div id="bankListContainer" style="margin-bottom: 1rem; display: none;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Nama Bank:</label>
+                    <select id="cvBankName" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #4a5568; background: #1a202c; color: white; font-family: inherit; box-sizing: border-box;">
+                        <option value="BCA">BCA</option>
+                        <option value="BRI">BRI</option>
+                        <option value="Mandiri">Mandiri</option>
+                        <option value="BNI">BNI</option>
+                        <option value="CIMB">CIMB Niaga</option>
+                        <option value="Jago">Bank Jago</option>
+                        <option value="SeaBank">SeaBank</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Nomor/Rekening Tujuan:</label>
+                    <input type="tel" id="cvTargetNumber" placeholder="Contoh: 08xx / 123xxx" oninput="this.value = this.value.replace(/[^0-9]/g, '')" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #4a5568; background: #1a202c; color: white; font-family: inherit; box-sizing: border-box;">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Nominal:</label>
+                    <input type="number" id="cvNominal" placeholder="Contoh: 50000" max="1000000" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #4a5568; background: #1a202c; color: white; font-family: inherit; box-sizing: border-box;">
+                    <p id="limitWarning" style="color: #f5b327; font-size: 0.85rem; margin-top: 8px; display: none;">
+                        <i class="fas fa-exclamation-triangle"></i> Maksimal nominal Rp 1.000.000. Jika ingin lebih, silakan hubungi admin terlebih dahulu.
+                    </p>
+                </div>
+
+                <div id="estimationBox" style="background: #1a202c; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border: 1px dashed #4a5568; display: none;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="color: #a0aec0;">Nominal Transfer:</span>
+                        <span id="displayNominal" style="font-weight: bold;">Rp 0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="color: #a0aec0;">Biaya Admin (Est.):</span>
+                        <span id="displayFee" style="color: #e53e3e; font-weight: bold;">- Rp 0</span>
+                    </div>
+                    <div style="border-top: 1px solid #4a5568; margin: 0.5rem 0;"></div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #a0aec0;">Total Diterima:</span>
+                        <span id="displayTotal" style="color: #48bb78; font-weight: bold; font-size: 1.1em;">Rp 0</span>
+                    </div>
+                </div>
+
+                <button id="payButton" onclick="showQrisModal()" class="wa-button" style="width: 100%; border: none; cursor: pointer; font-size: 1.1rem;">
+                    <i class="fas fa-qrcode" style="margin-right: 10px;"></i> Bayar via QRIS
+                </button>
+
+                <script>
+                    function toggleBankList() {
+                        var target = document.getElementById('cvTarget').value;
+                        var bankList = document.getElementById('bankListContainer');
+                        if (target === 'Bank') {
+                            bankList.style.display = 'block';
+                        } else {
+                            bankList.style.display = 'none';
+                        }
+                    }
+
+                    // Kalkulator Estimasi Biaya
+                    document.getElementById('cvNominal').addEventListener('input', function() {
+                        var nominal = parseInt(this.value) || 0;
+                        
+                        // Batasi input max 1 juta
+                        if (nominal > 1000000) {
+                            this.value = 1000000;
+                            nominal = 1000000;
+                        }
+
+                        var fee = 0;
+
+                        // Logika Estimasi Biaya (Bisa disesuaikan)
+                        if (nominal > 0) {
+                            if (nominal <= 50000) fee = 3000;
+                            else if (nominal <= 200000) fee = 5000;
+                            else if (nominal <= 500000) fee = 7000;
+                            else fee = 10000;
+                        }
+
+                        var total = nominal - fee;
+                        if (total < 0) total = 0;
+
+                        document.getElementById('displayNominal').innerText = 'Rp ' + nominal.toLocaleString('id-ID');
+                        document.getElementById('displayFee').innerText = '- Rp ' + fee.toLocaleString('id-ID');
+                        document.getElementById('displayTotal').innerText = 'Rp ' + total.toLocaleString('id-ID');
+
+                        var box = document.getElementById('estimationBox');
+                        box.style.display = nominal > 0 ? 'block' : 'none';
+
+                        // Warning Limit
+                        var limitWarning = document.getElementById('limitWarning');
+                        if (nominal >= 1000000) {
+                            limitWarning.style.display = 'block';
+                        } else {
+                            limitWarning.style.display = 'none';
+                        }
+                    });
+
+                    var timerInterval;
+
+                    function startTimer(duration, display) {
+                        var timer = duration, minutes, seconds;
+                        clearInterval(timerInterval);
+                        
+                        var updateDisplay = function () {
+                            minutes = parseInt(timer / 60, 10);
+                            seconds = parseInt(timer % 60, 10);
+                            minutes = minutes < 10 ? "0" + minutes : minutes;
+                            seconds = seconds < 10 ? "0" + seconds : seconds;
+                            display.textContent = minutes + ":" + seconds;
+                        };
+                        
+                        updateDisplay();
+
+                        timerInterval = setInterval(function () {
+                            if (--timer < 0) {
+                                clearInterval(timerInterval);
+                                display.textContent = "00:00";
+                                alert("Waktu pembayaran habis. Silakan ulangi.");
+                                closeQrisModal();
+                            } else {
+                                updateDisplay();
+                            }
+                        }, 1000);
+                    }
+
+                    function showQrisModal() {
+                        var nominal = document.getElementById('cvNominal').value;
+                        var targetNumber = document.getElementById('cvTargetNumber').value;
+                        
+                        if (!nominal || !targetNumber) { 
+                            document.getElementById('notificationModal').style.display = 'block';
+                            return; 
+                        }
+                        
+                        var btn = document.getElementById('payButton');
+                        var originalContent = btn.innerHTML;
+                        
+                        // Show loading state
+                        btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 10px;"></i> Memproses...';
+                        btn.disabled = true;
+                        btn.style.opacity = '0.7';
+                        btn.style.cursor = 'not-allowed';
+
+                        setTimeout(function() {
+                            document.getElementById('modalNominal').innerText = 'Rp ' + parseInt(nominal).toLocaleString('id-ID');
+                            document.getElementById('qrisModal').style.display = 'block';
+                            
+                            // Start Timer 5 minutes
+                            var display = document.querySelector('#qrisTimer');
+                            startTimer(300, display);
+
+                            // Reset button state
+                            btn.innerHTML = originalContent;
+                            btn.disabled = false;
+                            btn.style.opacity = '1';
+                            btn.style.cursor = 'pointer';
+                        }, 1500); // Delay 1.5 detik
+                    }
+
+                    function closeQrisModal() {
+                        document.getElementById('qrisModal').style.display = 'none';
+                        clearInterval(timerInterval);
+                    }
+
+                    function closeNotificationModal() {
+                        document.getElementById('notificationModal').style.display = 'none';
+                    }
+
+                    function proceedToWa() {
+                        var source = document.getElementById('cvSource').value;
+                        var target = document.getElementById('cvTarget').value;
+                        if (target === 'Bank') {
+                            target = document.getElementById('cvBankName').value;
+                        }
+                        var targetNumber = document.getElementById('cvTargetNumber').value;
+                        var nominal = document.getElementById('cvNominal').value;
+                        
+                        var message = "Halo Admin, saya mau Convert Saldo (CV).\n\n" +
+                                      "Sumber: " + source + "\n" +
+                                      "Tujuan: " + target + "\n" +
+                                      "No/Rek: " + targetNumber + "\n" +
+                                      "Nominal: Rp " + parseInt(nominal).toLocaleString('id-ID') + "\n" +
+                                      "Status: Sudah Scan QRIS, Mohon diproses.";
+                        
+                        window.open("https://wa.me/6282194559519?text=" + encodeURIComponent(message), "_blank");
+                        closeQrisModal();
+                    }
+
+                    // Close modal when clicking outside
+                    window.onclick = function(event) {
+                        var qrisModal = document.getElementById('qrisModal');
+                        var notifModal = document.getElementById('notificationModal');
+                        if (event.target == qrisModal) {
+                            qrisModal.style.display = "none";
+                        }
+                        if (event.target == notifModal) {
+                            notifModal.style.display = "none";
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal QRIS Convert -->
+    <div id="qrisModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeQrisModal()">&times;</span>
+            <div class="modal-header">
+                <h3>Scan QRIS untuk Transfer</h3>
+                <div id="qrisTimer" style="font-size: 1.5rem; font-weight: bold; color: #e53e3e; margin-top: 5px; text-align: center;">05:00</div>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p>Silakan scan QRIS di bawah ini menggunakan E-Wallet Anda.</p>
+                <img src="images/qris.png" alt="QRIS Code" style="max-width: 100%; width: 250px; border: 1px solid #ccc; border-radius: 8px; padding: 5px; background: white;">
+                <p style="margin-top: 1rem;">Nominal: <strong id="modalNominal">Rp 0</strong></p>
+                <p style="font-size: 0.9rem; color: #a0aec0;">Setelah transfer berhasil, klik tombol di bawah untuk konfirmasi ke Admin.</p>
+                <button onclick="proceedToWa()" class="wa-button" style="width: 100%; margin-top: 1rem; border: none; cursor: pointer;">
+                    <i class="fab fa-whatsapp"></i> Konfirmasi ke WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Notifikasi Error -->
+    <div id="notificationModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <span class="close-button" onclick="closeNotificationModal()">&times;</span>
+            <div class="modal-header" style="border-bottom: none; padding-top: 1.5rem;">
+                <h3 style="color: #e53e3e; text-align: center;">Peringatan</h3>
+            </div>
+            <div class="modal-body" style="text-align: center; padding-bottom: 2rem;">
+                <i class="fas fa-exclamation-circle" style="font-size: 4rem; color: #e53e3e; margin-bottom: 1rem;"></i>
+                <p style="font-size: 1.1rem;">Mohon lengkapi semua data sebelum melanjutkan.</p>
+                <button onclick="closeNotificationModal()" class="wa-button" style="margin-top: 1.5rem; width: 100%; background: #4a5568; border: none; cursor: pointer;">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+</body>
+</html>

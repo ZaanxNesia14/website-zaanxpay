@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hubungi Kami - zaanxpay</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1>Hubungi Kami</h1>
+        <p>Kami siap membantu Anda.</p>
+    </header>
+
+    <main>
+        <div class="purchase-container" style="max-width: 800px; text-align: center;">
+            <div class="form-step">
+                <h3>Contact Our Customer Support</h3>
+                <p style="margin-bottom: 2rem;">
+                    Jam Dukungan: Senin hingga Minggu, 24 jam (kecuali Live Chat)
+                </p>
+                
+                <a href="https://api.whatsapp.com/send?phone=6282194559519" target="_blank" class="whatsapp-button" style="display: block; max-width: 300px; margin: 1rem auto;">
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+                
+                <a href="request.html" class="request-button" style="display: block; max-width: 300px; margin: 1rem auto;">
+                    Submit a request
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Preloader Script ---
+            window.addEventListener('load', function() {
+                const preloader = document.querySelector('.preloader');
+                preloader.classList.add('hidden');
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up Valorant</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1>Top Up Valorant Points</h1>
+        <p>Proses manual, cepat, dan terpercaya.</p>
+    </header>
+
+    <main>
+        <div class="purchase-container">
+            <div class="game-info-header">
+                <img src="images/games/valorant.jpg" alt="Valorant">
+                <div class="game-info-details">
+                    <h3>Valorant</h3>
+                    <p>⚡️ Proses Cepat</p>
+                    <p>🥷🏼 Buka 24 Jam Setiap Hari</p>
+                </div>
+            </div>
+            <form id="purchaseForm" onsubmit="return false;">
+                <!-- 1. Masukkan Data Akun -->
+                <div class="form-step">
+                    <h3>1. Masukkan Data Akun</h3>
+                    <div class="form-group">
+                        <input type="text" id="riotId" name="riotId" placeholder=" " required>
+                        <label for="riotId">Riot ID <span class="info-link" id="openModalBtn">(?)</span></label>
+                    </div>
+                </div>
+
+                <!-- 2. Pilih Nominal Top Up -->
+                <div class="form-step">
+                    <h3>2. Pilih Nominal</h3>
+                    <div class="price-options" id="priceOptions">
+                        <div class="price-option" data-price="53000" data-product="475 Points">475 Points<br><small>Rp 53.000</small></div>
+                        <div class="price-option" data-price="106000" data-product="1000 Points">1000 Points<br><small>Rp 106.000</small></div>
+                        <div class="price-option" data-price="158000" data-product="1475 Points">1475 Points<br><small>Rp 158.000</small></div>
+                        <div class="price-option" data-price="210000" data-product="2050 Points">2050 Points<br><small>Rp 210.000</small></div>
+                        <div class="price-option" data-price="262000" data-product="2525 Points">2525 Points<br><small>Rp 262.000</small></div>
+                        <div class="price-option" data-price="315000" data-product="3050 Points">3050 Points<br><small>Rp 315.000</small></div>
+                        <div class="price-option" data-price="364000" data-product="3650 Points">3650 Points<br><small>Rp 364.000</small></div>
+                        <div class="price-option" data-price="416000" data-product="4125 Points">4125 Points<br><small>Rp 416.000</small></div>
+                        <div class="price-option" data-price="468000" data-product="4650 Points">4650 Points<br><small>Rp 468.000</small></div>
+                        <div class="price-option" data-price="522000" data-product="5350 Points">5350 Points<br><small>Rp 522.000</small></div>
+                        <div class="price-option" data-price="573000" data-product="5700 Points">5700 Points<br><small>Rp 573.000</small></div>
+                        <div class="price-option" data-price="575000" data-product="5825 Points">5825 Points<br><small>Rp 575.000</small></div>
+                        <div class="price-option" data-price="627000" data-product="6350 Points">6350 Points<br><small>Rp 627.000</small></div>
+                        <div class="price-option" data-price="732000" data-product="7400 Points">7400 Points<br><small>Rp 732.000</small></div>
+                        <div class="price-option" data-price="885000" data-product="9000 Points">9000 Points<br><small>Rp 885.000</small></div>
+                        <div class="price-option" data-price="1025000" data-product="11000 Points">11000 Points<br><small>Rp 1.025.000</small></div>
+                        <div class="price-option" data-price="1080000" data-product="11475 Points">11475 Points<br><small>Rp 1.080.000</small></div>
+                        <div class="price-option" data-price="1135000" data-product="12000 Points">12000 Points<br><small>Rp 1.135.000</small></div>
+                        <div class="price-option" data-price="1240000" data-product="13050 Points">13050 Points<br><small>Rp 1.240.000</small></div>
+                        <div class="price-option" data-price="1390000" data-product="14650 Points">14650 Points<br><small>Rp 1.390.000</small></div>
+                        <div class="price-option" data-price="1550000" data-product="16350 Points">16350 Points<br><small>Rp 1.550.000</small></div>
+                        <div class="price-option" data-price="2055000" data-product="22000 Points">22000 Points<br><small>Rp 2.055.000</small></div>
+                    </div>
+                    <input type="hidden" id="selectedPrice" name="price" required>
+                    <input type="hidden" id="selectedProduct" name="product" required>
+                </div>
+
+                <!-- 3. Pilih Metode Pembayaran -->
+                <div class="form-step">
+                    <h3>3. Pilih Pembayaran</h3>
+                    <p id="qrisLimitWarning" class="qris-limit-warning" style="display: none;">QRIS tidak tersedia untuk pembayaran di atas Rp 500.000.</p>
+                    <div class="payment-categories">
+                        <div class="payment-category">
+                            <h4>E-Wallet & QRIS</h4>
+                            <div class="payment-method-options" id="paymentOptionsContainer">
+                                <div class="payment-method-option" data-payment="qris">
+                                    <img src="images/payments/qris.png" alt="QRIS">
+                                    <span>QRIS</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="dana">
+                                    <img src="images/payments/dana.png" alt="DANA">
+                                    <span>DANA</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="gopay">
+                                    <img src="images/payments/gopay.png" alt="GoPay">
+                                    <span>GoPay</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="shopeepay">
+                                    <img src="images/payments/shopeepay.png" alt="ShopeePay">
+                                    <span>ShopeePay</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Masukkan Kode Promo -->
+                <div class="form-step">
+                    <h3>4. Masukkan Kode Promo (Opsional)</h3>
+                    <div class="promo-code-section">
+                        <div class="form-group">
+                            <input type="text" id="promoCode" name="promoCode" placeholder=" ">
+                            <label for="promoCode">Kode Promo</label>
+                        </div>
+                        <button type="button" id="applyPromoBtn" class="proceed-button" style="height: 47px;">Terapkan</button>
+                    </div>
+                </div>
+
+                <!-- 5. Masukkan Informasi Kontak -->
+                <div class="form-step">
+                    <h3>5. Masukkan Informasi Kontak</h3>
+                    <div class="form-group">
+                        <input type="text" id="contactInfo" name="contactInfo" placeholder=" " required>
+                        <label for="contactInfo">No. HP / Email (untuk dihubungi)</label>
+                    </div>
+                </div>
+
+                <!-- Ringkasan & Tombol Lanjut -->
+                <div class="summary-section" id="summarySection" style="display: none;">
+                    <p>Total Pembayaran: <strong id="summaryPrice">Rp 0</strong></p>
+                    <button type="button" id="proceedBtn" class="proceed-button">Lanjutkan ke Pembayaran</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal untuk Konfirmasi Pesanan -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Konfirmasi Pesanan Anda</h3>
+                <div class="modal-body">
+                    <p>Mohon periksa kembali detail pesanan Anda sebelum melanjutkan.</p>
+                    <ul class="confirmation-details">
+                        <!-- Detail akan diisi oleh JavaScript -->
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn">Batal</button>
+                    <button type="button" class="confirm-btn" id="confirmOrderBtn">Ya, Lanjutkan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Pembayaran -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-button">&times;</span> <!-- Tombol close ini akan bekerja untuk semua -->
+                    <div id="timer">05:00</div>
+                </div>
+                <div class="modal-body">
+                    <h3 id="paymentMethodTitle">Metode Pembayaran</h3>
+
+                    <!-- Bagian untuk QRIS -->
+                    <div id="qrPayment" style="display: none;">
+                        <p>Total: <strong id="totalPrice">Rp 0</strong></p>
+                        <img src="images/qris.png" alt="QRIS Code" id="paymentQrImg" class="payment-qr-img">
+                    </div>
+
+                    <!-- Bagian untuk DANA, GoPay, ShopeePay -->
+                    <div id="manualPayment" style="display: none;" class="payment-details">
+                        <p>Jika aplikasi tidak terbuka, silakan transfer manual ke:</p>
+                        <div class="payment-number-box">
+                            <span id="paymentNumber">08xxxxxxxxxx</span>
+                            <button id="copyNumberBtn" title="Salin Nomor"><i class="far fa-copy"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Bagian untuk Loading Redirect -->
+                    <div id="paymentRedirecting" style="display: none; text-align: center; padding: 2rem 0;">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                        <p style="margin-top: 1rem; font-size: 1.1em;">Membuka aplikasi pembayaran...</p>
+                    </div>
+
+                    <p>Setelah membayar, klik tombol di bawah untuk konfirmasi pesanan via WhatsApp.</p>
+                    <a href="#" id="whatsappLink" class="whatsapp-button" target="_blank">Konfirmasi ke WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Petunjuk ID -->
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Cara Menemukan Riot ID</h3>
+                <div class="modal-body">
+                    <p class="guide-step"><i class="fas fa-gamepad"></i> Buka game Valorant dan masuk ke profil Anda.</p>
+                    <p class="guide-step"><i class="fas fa-mouse-pointer"></i> Arahkan kursor ke nama profil Anda untuk melihat Riot ID lengkap dengan tag (Contoh: Nama#1234).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Konfirmasi Sukses -->
+        <div id="successConfirmationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Pesanan Diterima!</h3>
+                </div>
+                <div class="modal-body">
+                    <i class="fas fa-check-circle success-confirmation-icon"></i>
+                    <p>Anda akan segera diarahkan ke WhatsApp. Mohon kirimkan bukti pembayaran Anda di sana.</p>
+                </div>
+                <div class="modal-footer" style="text-align: center;">
+                    <button type="button" class="notification-ok-btn">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Notifikasi Error -->
+        <div id="notificationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Peringatan</h3>
+                </div>
+                <div class="modal-body">
+                    <i id="notificationIcon" class="fas"></i>
+                    <span id="notificationMessage"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="notification-ok-btn">OK</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+    <script src="product-page.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const config = {
+                namaGame: 'Valorant',
+                nomorWhatsApp: '6282194559519',
+                paymentTimeLimit: 300,
+                discountPercentage: 0.02,
+                validPromoCodes: ['ZAANXGG'],
+                expiredPromoCodes: ['ZAANXGACOR'],
+                userInputFields: [
+                    { id: 'riotId', label: 'Riot ID' },
+                    { id: 'contactInfo', label: 'Kontak (HP/Email)' }
+                ]
+            };
+            window.initializeProductPage(config);
+        });
+    </script>
+
+</body>
+</html>         const product = selectedOption.dataset.product;

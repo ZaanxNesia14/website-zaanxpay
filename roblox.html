@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up Roblox</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1>Top Up Robux</h1>
+        <p>Proses manual, cepat, dan terpercaya.</p>
+    </header>
+
+    <main>
+        <div class="purchase-container">
+            <div class="game-info-header">
+                <img src="images/games/roblox.jpg" alt="Roblox">
+                <div class="game-info-details">
+                    <h3>Roblox</h3>
+                    <p>⚡️ Proses Cepat</p>
+                    <p>🥷🏼 Buka 24 Jam Setiap Hari</p>
+                </div>
+            </div>
+            <form id="purchaseForm" onsubmit="return false;">
+                <!-- 1. Masukkan Data Akun -->
+                <div class="form-step">
+                    <h3>1. Masukkan Data Akun</h3>
+                    <div class="form-group">
+                        <input type="text" id="robloxUsername" name="robloxUsername" placeholder=" " required>
+                        <label for="robloxUsername">Roblox Username <span class="info-link" id="openModalBtn">(?)</span></label>
+                    </div>
+                </div>
+
+                <!-- 2. Pilih Nominal Top Up -->
+                <div class="form-step">
+                    <h3>2. Pilih Kategori dan Nominal</h3>
+                    <div class="product-category-buttons">
+                        <button type="button" class="category-btn active" data-category="robux">Robux</button>
+                        <button type="button" class="category-btn" data-category="giftcard-idr">Gift Card IDR</button>
+                        <button type="button" class="category-btn" data-category="giftcard-usd">Gift Card USD</button>
+                    </div>
+                    <div class="price-options" id="priceOptions">
+                        <!-- Kategori Robux -->
+                        <div class="price-option" data-category="robux" data-price="48000" data-product="250 Robux" style="display: block;">250 Robux<br><small>Rp 48.000</small></div>
+                        <div class="price-option" data-category="robux" data-price="150000" data-product="800 Robux" style="display: block;">800 Robux<br><small>Rp 150.000</small></div>
+                        <div class="price-option" data-category="robux" data-price="377000" data-product="2000 Robux" style="display: block;">2000 Robux<br><small>Rp 377.000</small></div>
+                        <div class="price-option" data-category="robux" data-price="760000" data-product="4500 Robux" style="display: block;">4500 Robux<br><small>Rp 760.000</small></div>
+                        <div class="price-option" data-category="robux" data-price="1520000" data-product="10000 Robux" style="display: block;">10000 Robux<br><small>Rp 1.520.000</small></div>
+
+                        <!-- Kategori Gift Card IDR -->
+                        <div class="price-option" data-category="giftcard-idr" data-price="47000" data-product="Roblox Gift Card IDR 50K" style="display: none;">Roblox Gift Card IDR 50K<br><small>Rp 47.000</small></div>
+                        <div class="price-option" data-category="giftcard-idr" data-price="60000" data-product="Roblox Gift Card IDR 65K" style="display: none;">Roblox Gift Card IDR 65K<br><small>Rp 60.000</small></div>
+                        <div class="price-option" data-category="giftcard-idr" data-price="92000" data-product="Roblox Gift Card IDR 100K" style="display: none;">Roblox Gift Card IDR 100K<br><small>Rp 92.000</small></div>
+                        <div class="price-option" data-category="giftcard-idr" data-price="180000" data-product="Roblox Gift Card IDR 200K" style="display: none;">Roblox Gift Card IDR 200K<br><small>Rp 180.000</small></div>
+                        <div class="price-option" data-category="giftcard-idr" data-price="270000" data-product="Roblox Gift Card IDR 300K" style="display: none;">Roblox Gift Card IDR 300K<br><small>Rp 270.000</small></div>
+                        <div class="price-option" data-category="giftcard-idr" data-price="450000" data-product="Roblox Gift Card IDR 500K" style="display: none;">Roblox Gift Card IDR 500K<br><small>Rp 450.000</small></div>
+
+                        <!-- Kategori Gift Card USD -->
+                        <div class="price-option" data-category="giftcard-usd" data-price="155000" data-product="Roblox USD 10 Global" style="display: none;">Roblox USD 10 Global<br><small>Rp 155.000</small></div>
+                        <div class="price-option" data-category="giftcard-usd" data-price="385000" data-product="Roblox USD 25 Global" style="display: none;">Roblox USD 25 Global<br><small>Rp 385.000</small></div>
+                        <div class="price-option" data-category="giftcard-usd" data-price="770000" data-product="Roblox USD 50 Global" style="display: none;">Roblox USD 50 Global<br><small>Rp 770.000</small></div>
+                    </div>
+                    <input type="hidden" id="selectedPrice" name="price" required>
+                    <input type="hidden" id="selectedProduct" name="product" required>
+                </div>
+
+                <!-- 3. Pilih Metode Pembayaran -->
+                <div class="form-step">
+                    <h3>3. Pilih Pembayaran</h3>
+                    <p id="qrisLimitWarning" class="qris-limit-warning" style="display: none;">QRIS tidak tersedia untuk pembayaran di atas Rp 500.000.</p>
+                    <div class="payment-categories">
+                        <div class="payment-category">
+                            <h4>E-Wallet & QRIS</h4>
+                            <div class="payment-method-options" id="paymentOptionsContainer">
+                                <div class="payment-method-option" data-payment="qris">
+                                    <img src="images/payments/qris.png" alt="QRIS">
+                                    <span>QRIS</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="dana">
+                                    <img src="images/payments/dana.png" alt="DANA">
+                                    <span>DANA</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="gopay">
+                                    <img src="images/payments/gopay.png" alt="GoPay">
+                                    <span>GoPay</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="shopeepay">
+                                    <img src="images/payments/shopeepay.png" alt="ShopeePay">
+                                    <span>ShopeePay</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Masukkan Kode Promo -->
+                <div class="form-step">
+                    <h3>4. Masukkan Kode Promo (Opsional)</h3>
+                    <div class="promo-code-section">
+                        <div class="form-group">
+                            <input type="text" id="promoCode" name="promoCode" placeholder=" ">
+                            <label for="promoCode">Kode Promo</label>
+                        </div>
+                        <button type="button" id="applyPromoBtn" class="proceed-button" style="height: 47px;">Terapkan</button>
+                    </div>
+                </div>
+
+                <!-- 5. Masukkan Informasi Kontak -->
+                <div class="form-step">
+                    <h3>5. Masukkan Informasi Kontak</h3>
+                    <div class="form-group">
+                        <input type="text" id="contactInfo" name="contactInfo" placeholder=" ">
+                        <label for="contactInfo">No. HP / Email (untuk dihubungi)</label>
+                    </div>
+                </div>
+
+                <!-- Ringkasan & Tombol Lanjut -->
+                <div class="summary-section" id="summarySection" style="display: none;">
+                    <p>Total Pembayaran: <strong id="summaryPrice">Rp 0</strong></p>
+                    <button type="button" id="proceedBtn" class="proceed-button">Lanjutkan ke Pembayaran</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal untuk Petunjuk ID -->
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Cara Menemukan Roblox Username</h3>
+                <div class="modal-body">
+                    <p class="guide-step"><i class="fas fa-mobile-alt"></i> Buka aplikasi Roblox.</p>
+                    <p class="guide-step"><i class="fas fa-user-circle"></i> Masuk ke halaman profil Anda.</p>
+                    <p class="guide-step"><i class="fas fa-info-circle"></i> Username Anda adalah nama yang ditampilkan di profil Anda (bukan Display Name).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Konfirmasi Pesanan -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Konfirmasi Pesanan Anda</h3>
+                <div class="modal-body">
+                    <p>Mohon periksa kembali detail pesanan Anda sebelum melanjutkan.</p>
+                    <ul class="confirmation-details"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn">Batal</button>
+                    <button type="button" class="confirm-btn" id="confirmOrderBtn">Ya, Lanjutkan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Pembayaran -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-button">&times;</span>
+                    <div id="timer">05:00</div>
+                </div>
+                <div class="modal-body">
+                    <h3 id="paymentMethodTitle">Metode Pembayaran</h3>
+                    <div id="qrPayment" style="display: none;">
+                        <p>Total: <strong id="totalPrice">Rp 0</strong></p>
+                        <img src="images/qris.png" alt="QRIS Code" id="paymentQrImg" class="payment-qr-img">
+                    </div>
+                    <div id="manualPayment" style="display: none;" class="payment-details">
+                        <p>Jika aplikasi tidak terbuka, silakan transfer manual ke:</p>
+                        <div class="payment-number-box">
+                            <span id="paymentNumber">08xxxxxxxxxx</span>
+                            <button id="copyNumberBtn" title="Salin Nomor"><i class="far fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div id="paymentRedirecting" style="display: none; text-align: center; padding: 2rem 0;">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                        <p style="margin-top: 1rem; font-size: 1.1em;">Membuka aplikasi pembayaran...</p>
+                    </div>
+                    <p>Setelah membayar, klik tombol di bawah untuk konfirmasi pesanan via WhatsApp.</p>
+                    <a href="#" id="whatsappLink" class="whatsapp-button" target="_blank">Konfirmasi ke WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Konfirmasi Sukses -->
+        <div id="successConfirmationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Pesanan Diterima!</h3>
+                </div>
+                <div class="modal-body">
+                    <i class="fas fa-check-circle success-confirmation-icon"></i>
+                    <p>Anda akan segera diarahkan ke WhatsApp. Mohon kirimkan bukti pembayaran Anda di sana.</p>
+                </div>
+                <div class="modal-footer" style="text-align: center;">
+                    <button type="button" class="notification-ok-btn">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Notifikasi Error -->
+        <div id="notificationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Peringatan</h3>
+                </div>
+                <div class="modal-body">
+                    <i id="notificationIcon" class="fas"></i>
+                    <span id="notificationMessage"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="notification-ok-btn">OK</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+    <script src="product-page.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const config = {
+                namaGame: 'Roblox',
+                nomorWhatsApp: '6282194559519',
+                paymentTimeLimit: 300,
+                discountPercentage: 0.02,
+                validPromoCodes: ['ZAANXGG'],
+                expiredPromoCodes: ['ZAANXGACOR'],
+                userInputFields: [
+                    { id: 'robloxUsername', label: 'Roblox Username' },
+                    { id: 'contactInfo', label: 'Kontak (HP/Email)' }
+                ]
+            };
+            window.initializeProductPage(config);
+        });
+    </script>
+
+</body>
+</html>

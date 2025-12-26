@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up TikTok</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1>Top Up TikTok Coins</h1>
+        <p>Proses manual, cepat, dan terpercaya.</p>
+    </header>
+
+    <main>
+        <div class="purchase-container">
+            <div class="game-info-header">
+                <img src="images/games/tiktok.jpg" alt="TikTok">
+                <div class="game-info-details">
+                    <h3>TikTok</h3>
+                    <p>⚡️ Proses Cepat</p>
+                    <p>🥷🏼 Buka 24 Jam Setiap Hari</p>
+                </div>
+            </div>
+            <form id="purchaseForm" onsubmit="return false;">
+                <!-- 1. Masukkan Data Akun -->
+                <div class="form-step">
+                    <h3>1. Masukkan Data Akun</h3>
+                    <div class="form-group">
+                        <input type="text" id="tiktokId" name="tiktokId" placeholder=" " required>
+                        <label for="tiktokId">TikTok ID / Username <span class="info-link" id="openModalBtn">(?)</span></label>
+                    </div>
+                </div>
+
+                <!-- 2. Pilih Nominal Top Up -->
+                <div class="form-step">
+                    <h3>2. Pilih Nominal</h3>
+                    <div class="price-options" id="priceOptions">
+                        <div class="price-option" data-price="6200" data-product="30 Coins">30 Coins<br><small>Rp 6.200</small></div>
+                        <div class="price-option" data-price="8100" data-product="40 Coins">40 Coins<br><small>Rp 8.100</small></div>
+                        <div class="price-option" data-price="16000" data-product="80 Coins">80 Coins<br><small>Rp 16.000</small></div>
+                        <div class="price-option" data-price="19900" data-product="100 Coins">100 Coins<br><small>Rp 19.900</small></div>
+                        <div class="price-option" data-price="29800" data-product="150 Coins">150 Coins<br><small>Rp 29.800</small></div>
+                        <div class="price-option" data-price="39600" data-product="200 Coins">200 Coins<br><small>Rp 39.600</small></div>
+                        <div class="price-option" data-price="79000" data-product="400 Coins">400 Coins<br><small>Rp 79.000</small></div>
+                    </div>
+                    
+                    <!-- Custom Nominal Section -->
+                    <div class="custom-section" style="margin-top: 1.5rem; border-top: 1px dashed #333; padding-top: 1rem;">
+                        <label for="customCoinInput" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Atau Masukkan Jumlah Koin (Min. 30 - Max. 2.500.000)</label>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <input type="number" id="customCoinInput" placeholder="Jumlah Koin" min="30" max="2500000" style="flex: 1; padding: 0.8rem; border-radius: 6px; border: 1px solid #333; background-color: #1a202c; color: #fff;">
+                            <div style="padding: 0.8rem; background-color: #2d3748; border-radius: 6px; min-width: 120px; text-align: center;">Total: <span id="customPricePreview" style="color: #007bff; font-weight: bold;">Rp 0</span></div>
+                        </div>
+                        <small style="color: #888; display: block; margin-top: 5px;">Harga Rp 200 / koin</small>
+                    </div>
+
+                    <input type="hidden" id="selectedPrice" name="price" required>
+                    <input type="hidden" id="selectedProduct" name="product" required>
+                </div>
+
+                <!-- 3. Pilih Metode Pembayaran -->
+                <div class="form-step">
+                    <h3>3. Pilih Pembayaran</h3>
+                    <p id="qrisLimitWarning" class="qris-limit-warning" style="display: none;">QRIS tidak tersedia untuk pembayaran di atas Rp 500.000.</p>
+                    <div class="payment-categories">
+                        <div class="payment-category">
+                            <h4>E-Wallet & QRIS</h4>
+                            <div class="payment-method-options" id="paymentOptionsContainer">
+                                <div class="payment-method-option" data-payment="qris">
+                                    <img src="images/payments/qris.png" alt="QRIS">
+                                    <span>QRIS</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="dana">
+                                    <img src="images/payments/dana.png" alt="DANA">
+                                    <span>DANA</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="gopay">
+                                    <img src="images/payments/gopay.png" alt="GoPay">
+                                    <span>GoPay</span>
+                                </div>
+                                <div class="payment-method-option" data-payment="shopeepay">
+                                    <img src="images/payments/shopeepay.png" alt="ShopeePay">
+                                    <span>ShopeePay</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Masukkan Kode Promo -->
+                <div class="form-step">
+                    <h3>4. Masukkan Kode Promo (Opsional)</h3>
+                    <div class="promo-code-section">
+                        <div class="form-group">
+                            <input type="text" id="promoCode" name="promoCode" placeholder=" ">
+                            <label for="promoCode">Kode Promo</label>
+                        </div>
+                        <button type="button" id="applyPromoBtn" class="proceed-button" style="height: 47px;">Terapkan</button>
+                    </div>
+                </div>
+
+                <!-- 5. Masukkan Informasi Kontak -->
+                <div class="form-step">
+                    <h3>5. Masukkan Informasi Kontak</h3>
+                    <div class="form-group">
+                        <input type="text" id="contactInfo" name="contactInfo" placeholder=" ">
+                        <label for="contactInfo">No. HP / Email (untuk dihubungi)</label>
+                    </div>
+                </div>
+
+                <!-- Ringkasan & Tombol Lanjut -->
+                <div class="summary-section" id="summarySection" style="display: none;">
+                    <p>Total Pembayaran: <strong id="summaryPrice">Rp 0</strong></p>
+                    <button type="button" id="proceedBtn" class="proceed-button">Lanjutkan ke Pembayaran</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal untuk Petunjuk ID -->
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Cara Menemukan TikTok ID</h3>
+                <div class="modal-body">
+                    <p class="guide-step"><i class="fab fa-tiktok"></i> Buka aplikasi TikTok dan masuk ke profil Anda.</p>
+                    <p class="guide-step"><i class="fas fa-user-circle"></i> Username Anda (di bawah foto profil, diawali @) adalah ID yang diperlukan.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Konfirmasi Pesanan -->
+        <div id="confirmationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>Konfirmasi Pesanan Anda</h3>
+                <div class="modal-body">
+                    <p>Mohon periksa kembali detail pesanan Anda sebelum melanjutkan.</p>
+                    <ul class="confirmation-details"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn">Batal</button>
+                    <button type="button" class="confirm-btn" id="confirmOrderBtn">Ya, Lanjutkan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Pembayaran -->
+        <div id="paymentModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-button">&times;</span>
+                    <div id="timer">05:00</div>
+                </div>
+                <div class="modal-body">
+                    <h3 id="paymentMethodTitle">Metode Pembayaran</h3>
+                    <div id="qrPayment" style="display: none;">
+                        <p>Total: <strong id="totalPrice">Rp 0</strong></p>
+                        <img src="images/qris.png" alt="QRIS Code" id="paymentQrImg" class="payment-qr-img">
+                    </div>
+                    <div id="manualPayment" style="display: none;" class="payment-details">
+                        <p>Jika aplikasi tidak terbuka, silakan transfer manual ke:</p>
+                        <div class="payment-number-box">
+                            <span id="paymentNumber">08xxxxxxxxxx</span>
+                            <button id="copyNumberBtn" title="Salin Nomor"><i class="far fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div id="paymentRedirecting" style="display: none; text-align: center; padding: 2rem 0;">
+                        <div class="spinner" style="margin: 0 auto;"></div>
+                        <p style="margin-top: 1rem; font-size: 1.1em;">Membuka aplikasi pembayaran...</p>
+                    </div>
+                    <p>Setelah membayar, klik tombol di bawah untuk konfirmasi pesanan via WhatsApp.</p>
+                    <a href="#" id="whatsappLink" class="whatsapp-button" target="_blank">Konfirmasi ke WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Konfirmasi Sukses -->
+        <div id="successConfirmationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Pesanan Diterima!</h3>
+                </div>
+                <div class="modal-body">
+                    <i class="fas fa-check-circle success-confirmation-icon"></i>
+                    <p>Anda akan segera diarahkan ke WhatsApp. Mohon kirimkan bukti pembayaran Anda di sana.</p>
+                </div>
+                <div class="modal-footer" style="text-align: center;">
+                    <button type="button" class="notification-ok-btn">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal untuk Notifikasi Error -->
+        <div id="notificationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Peringatan</h3>
+                </div>
+                <div class="modal-body">
+                    <i id="notificationIcon" class="fas"></i>
+                    <span id="notificationMessage"></span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="notification-ok-btn">OK</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+    <script src="product-page.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const config = {
+                namaGame: 'TikTok',
+                nomorWhatsApp: '6282194559519',
+                paymentTimeLimit: 300,
+                discountPercentage: 0.02,
+                validPromoCodes: ['ZAANXGG'],
+                expiredPromoCodes: ['ZAANXGACOR'],
+                userInputFields: [
+                    { id: 'tiktokId', label: 'TikTok ID / Username' },
+                    { id: 'contactInfo', label: 'Kontak (HP/Email)' }
+                ]
+            };
+            const pageLogic = window.initializeProductPage(config);
+
+            // Custom Coin Logic
+            const customInput = document.getElementById('customCoinInput');
+            const pricePreview = document.getElementById('customPricePreview');
+            const selectedPriceInput = document.getElementById('selectedPrice');
+            const selectedProductInput = document.getElementById('selectedProduct');
+            const priceOptions = document.querySelectorAll('.price-option');
+            const qrisLimitWarning = document.getElementById('qrisLimitWarning');
+            const qrisOption = document.querySelector('.payment-method-option[data-payment="qris"]');
+
+            if (customInput) {
+                customInput.addEventListener('input', function() {
+                    let amount = parseInt(this.value);
+                    if (isNaN(amount) || amount < 0) amount = 0;
+
+                    if (amount > 2500000) {
+                        amount = 2500000;
+                        this.value = 2500000;
+                    }
+
+                    // Reset price options selection
+                    priceOptions.forEach(opt => opt.classList.remove('selected'));
+
+                    if (amount >= 30) {
+                        const price = amount * 200;
+                        pricePreview.textContent = 'Rp ' + price.toLocaleString('id-ID');
+                        
+                        selectedPriceInput.value = price;
+                        selectedProductInput.value = amount + ' Coins (Custom)';
+
+                        // QRIS Limit Logic
+                        if (qrisOption) {
+                            if (price > 500000) {
+                                if (qrisLimitWarning) qrisLimitWarning.style.display = 'block';
+                                qrisOption.classList.add('disabled');
+                                if (qrisOption.classList.contains('selected')) {
+                                    qrisOption.classList.remove('selected');
+                                }
+                            } else {
+                                if (qrisLimitWarning) qrisLimitWarning.style.display = 'none';
+                                qrisOption.classList.remove('disabled');
+                            }
+                        }
+
+                        // Update Summary
+                        if (pageLogic && pageLogic.updateSummaryPrice) {
+                            pageLogic.updateSummaryPrice();
+                            document.getElementById('summarySection').style.display = 'block';
+                        }
+                    } else {
+                        pricePreview.textContent = 'Rp 0';
+                        selectedPriceInput.value = '';
+                        selectedProductInput.value = '';
+                        document.getElementById('summarySection').style.display = 'none';
+                        
+                        if (qrisOption) {
+                            if (qrisLimitWarning) qrisLimitWarning.style.display = 'none';
+                            qrisOption.classList.remove('disabled');
+                        }
+                    }
+                });
+
+                // Clear custom input when a preset option is clicked
+                document.getElementById('priceOptions').addEventListener('click', function(e) {
+                    if (e.target.closest('.price-option')) {
+                        customInput.value = '';
+                        pricePreview.textContent = 'Rp 0';
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

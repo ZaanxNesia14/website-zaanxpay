@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Request - zaanxpay</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <h1>Submit a Request</h1>
+        <p>Isi formulir di bawah ini untuk mengirimkan pesan kepada kami.</p>
+    </header>
+
+    <main>
+        <div class="purchase-container contact-page-container">
+            <form id="contact-form" class="contact-form" action="https://formspree.io/f/xeoydrbg" method="POST">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Nama Anda" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Email Anda" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" rows="5" placeholder="Pesan Anda" required></textarea>
+                </div>
+                <button type="submit" class="proceed-button" style="width: 100%;">Kirim Pesan</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Modal untuk Sukses -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sukses!</h3>
+            </div>
+            <div class="modal-body">
+                <i class="fas fa-check-circle"></i>
+                <p>Pesan Anda telah berhasil dikirim. Kami akan segera meresponnya.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="notification-ok-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk Notifikasi Error (jika diperlukan) -->
+    <div id="notificationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Peringatan</h3>
+            </div>
+            <div class="modal-body" id="notificationMessage"></div>
+            <div class="modal-footer">
+                <button type="button" class="notification-ok-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/zaanxpay?igsh=MWlkb2R1d2gxcHBz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@zaanxnesia?_r=1&_t=ZS-92NY2gBS1nW" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://wa.me/6282194559519" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copyright">&copy; Hak Cipta zaanxpay</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Preloader Script ---
+            window.addEventListener('load', function() {
+                const preloader = document.querySelector('.preloader');
+                preloader.classList.add('hidden');
+            });
+
+            // --- Contact Form Submission Script ---
+            const contactForm = document.getElementById('contact-form');
+            const successModal = document.getElementById('successModal');
+            const successOkBtn = successModal.querySelector('.notification-ok-btn');
+            const notificationModal = document.getElementById("notificationModal");
+            const notificationMessage = document.getElementById("notificationMessage");
+            const notificationOkBtn = notificationModal.querySelector(".notification-ok-btn");
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Mencegah reload halaman
+
+                const formData = new FormData(contactForm);
+                const action = contactForm.getAttribute('action');
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.innerHTML = 'Mengirim...';
+                submitButton.disabled = true;
+
+                fetch(action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        contactForm.reset();
+                        successModal.style.display = 'block';
+                    } else {
+                        notificationMessage.textContent = 'Terjadi kesalahan saat mengirim pesan. Silakan coba lagi.';
+                        notificationModal.style.display = 'block';
+                    }
+                }).catch(error => {
+                    notificationMessage.textContent = 'Terjadi kesalahan jaringan. Periksa koneksi Anda dan coba lagi.';
+                    notificationModal.style.display = 'block';
+                }).finally(() => {
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                });
+            });
+
+            successOkBtn.onclick = () => { successModal.style.display = 'none'; }
+            notificationOkBtn.onclick = () => { notificationModal.style.display = 'none'; }
+            window.onclick = function(event) {
+                if (event.target == successModal) successModal.style.display = 'none';
+                if (event.target == notificationModal) notificationModal.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
